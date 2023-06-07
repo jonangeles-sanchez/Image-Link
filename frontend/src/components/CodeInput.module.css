@@ -58,6 +58,8 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+  margin-left: 220px;
+  margin-right: 220px;
 }
 
 .CodeInputButtonImage {
@@ -89,4 +91,10 @@
   border: 1px solid transparent;
   border-radius: 0 3px 3px 0;
   height: 36px;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  align-items: center;
 }
