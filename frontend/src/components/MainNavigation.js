@@ -8,7 +8,6 @@ function MainNavigation() {
   return (
     <header className={classes.header}>
       <nav>
-        <img src={cam} alt="logo" height={95} width={110} />
         <ul className={classes.list}>
           <li>
             <b className={classes.name}>ImageLink</b>
