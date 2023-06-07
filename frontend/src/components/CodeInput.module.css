@@ -1,0 +1,92 @@
+/*
+ * Styling for the CodeInput component.
+ * Style: Transparent input box with a transparent background and button within it.
+ */
+
+/*
+.CodeInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 1.2rem;
+  font-family: "Courier New", Courier, monospace;
+  background-color: #1bb76e;
+  color: #fff;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  caret-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+*/
+.CodeInputContainer {
+  display: flex;
+  align-items: center;
+}
+.CodeInput {
+  display: inline-block;
+  background: hsla(0, 0%, 100%, 0.25);
+  border: 1px solid transparent;
+  padding: 8px 35px 8px 10px;
+  border-radius: 3px 0 0 3px;
+  width: 100%;
+  outline: 0 none;
+  opacity: 0.8;
+  min-height: 36px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: #fff;
+  text-shadow: inherit;
+  -webkit-text-fill-color: inherit;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.CodeInputForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.CodeInputButtonImage {
+  display: inline-block;
+  background: transparent;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 0;
+  outline: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.CodeInputForm button {
+  display: inline-block;
+  background: transparent;
+  color: #fff;
+  opacity: 0.8;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  background: hsla(0, 0%, 100%, 0.25);
+  border: 1px solid transparent;
+  border-radius: 0 3px 3px 0;
+  height: 36px;
+}
