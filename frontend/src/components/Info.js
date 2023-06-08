@@ -7,7 +7,7 @@ function Info() {
     <>
       <section className={classes.info}>
         <Card>
-          <video height="900" controls>
+          <video height="900" autoPlay loop muted>
             <source src={moment_1} type="video/mp4" />
           </video>
         </Card>
