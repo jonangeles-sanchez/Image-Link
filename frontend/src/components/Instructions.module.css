@@ -1,0 +1,15 @@
+.info {
+  display: flex;
+}
+
+.summary h2 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.row {
+  font-size: 36px;
+  line-height: 36px;
+  white-space: normal;
+  position: absolute;
+}
