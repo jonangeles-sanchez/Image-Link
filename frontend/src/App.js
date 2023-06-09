@@ -2,7 +2,7 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import ImageLinkPage from "./scenes/imageLinkPage";
-import LoginPage from "./scenes/loginPage";
+import AuthPage from "./scenes/authPage";
 import Navbar, { action as FormHandler } from "./scenes/navbar";
 import Error from "./scenes/errorPage";
 
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     action: FormHandler,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "auth", element: <LoginPage /> },
+      { path: "auth", element: <AuthPage /> },
       { path: "imagelink/:id", element: <ImageLinkPage /> },
       { path: "imagelink/new", element: <ImageLinkPage /> },
     ],
