@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./scenes/homePage";
 import ImageLinkPage from "./scenes/imageLinkPage";
 import LoginPage from "./scenes/loginPage";
-import Navbar from "./scenes/navbar";
+import Navbar, { action as FormHandler } from "./scenes/navbar";
 import Error from "./scenes/errorPage";
 
 const router = createBrowserRouter([
@@ -12,7 +12,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <Navbar />,
     errorElement: <Error />,
-    children: [{ index: true, element: <HomePage /> }],
+    action: FormHandler,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: "auth", element: <LoginPage /> },
+      { path: "imagelink/:id", element: <ImageLinkPage /> },
+      { path: "imagelink/new", element: <ImageLinkPage /> },
+    ],
   },
 ]);
 

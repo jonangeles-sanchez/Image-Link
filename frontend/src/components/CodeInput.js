@@ -5,14 +5,16 @@ import {
   useActionData,
   json,
   redirect,
+  useFetcher,
 } from "react-router-dom";
 import classes from "./CodeInput.module.css";
 import SearchGlass from "./searchGlass.png";
 
 function CodeInput() {
+  const fetcher = useFetcher();
   return (
     <div className={classes.CodeInputContainer}>
-      <Form method={"GET"} className={classes.CodeInputForm}>
+      <fetcher.Form method={"post"} className={classes.CodeInputForm}>
         <b>Got a code? </b>
         <input
           id="code"
@@ -31,7 +33,7 @@ function CodeInput() {
             width={35}
           />
         </button>
-      </Form>
+      </fetcher.Form>
     </div>
   );
 }
