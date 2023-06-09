@@ -15,8 +15,8 @@ function Info() {
         <div className={classes.row}>
           <h1>A solution to cross-device content sharing.</h1>
           <p>
-            Moment is a web application that allows users to share your greatest
-            moments across any device.
+            ImageLink is a web application that allows users to share your
+            greatest moments across any device.
           </p>
         </div>
       </section>
