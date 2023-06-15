@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true })); // For parsing application/x-ww
 
 // Add routes
 app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/imagelink", require("./routes/imageLinkRoutes"));
+app.use("/api/imagelink", require("./routes/imagelinkRoutes"));
 
 // Start the server
 const PORT = process.env.PORT || 5000;
