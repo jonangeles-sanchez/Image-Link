@@ -1,24 +1,22 @@
 const asyncHandler = require("express-async-handler");
 
-const ImageLink = require("../models/imageLinkModel");
-const User = require("../models/userModel");
-const Image = require("../models/imageModel");
+const ImageLink = require("../models/imagelinkModel");
 
 // @desc    Create a new image link
 // @route   POST /api/imagelinks
 // @access  Private
 const createImageLink = asyncHandler(async (req, res) => {
-  const { title, url, description } = req.body;
+  const { user, title, description } = req.body;
 
-  if (!title || !url || !description) {
+  if (!title || !description) {
     res.status(400);
     throw new Error("Please fill out all fields");
   }
 
+  //   const newImageLink = `An image link was created with title ${title} and description ${description} by user ${user}. The images are ${images}`;
   const newImageLink = await ImageLink.create({
-    user: req.user._id,
+    user,
     title,
-    url,
     description,
   });
 
@@ -29,7 +27,8 @@ const createImageLink = asyncHandler(async (req, res) => {
 // @route   GET /api/imagelinks
 // @access  Public
 const getAllImageLinks = asyncHandler(async (req, res) => {
-  const imageLinks = await ImageLink.find({ user: req.user._id });
+  //   const imageLinks = await ImageLink.find({ user: req.user._id });
+  const imageLinks = await ImageLink.find({});
 
   res.status(200).json(imageLinks);
 });
@@ -52,29 +51,28 @@ const getSingleImageLink = asyncHandler(async (req, res) => {
 // @route   PUT /api/imagelinks/:id
 // @access  Private
 const updateSingleImageLink = asyncHandler(async (req, res) => {
-  const { title, description, file } = req.body;
+  const { title, description } = req.body;
 
-  const imageLink = await ImageLink.findById(req.params.id);
+  const imageLink = await ImageLink.findById(req.params.imagelinkid);
 
   if (!imageLink) {
     res.status(404);
     throw new Error("Image link not found");
   }
 
-  if (!req.user) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
+  //   if (!req.user) {
+  //     res.status(401);
+  //     throw new Error("Not authorized");
+  //   }
 
-  if (imageLink.user.toString() !== req.user._id.toString()) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
+  //   if (imageLink.user.toString() !== req.user._id.toString()) {
+  //     res.status(401);
+  //     throw new Error("Not authorized");
+  //   }
 
   const updatedImageLink = await ImageLink.findByIdAndUpdate(
-    title,
-    description,
-    file,
+    req.params.imagelinkid,
+    req.body,
     {
       new: true, // new: true returns the updated object
     }
@@ -87,26 +85,27 @@ const updateSingleImageLink = asyncHandler(async (req, res) => {
 // @route   DELETE /api/imagelinks/:id
 // @access  Private
 const deleteSingleImageLink = asyncHandler(async (req, res) => {
-  const imageLink = await ImageLink.findById(req.params.id);
+  const imageLink = await ImageLink.findById(req.params.imagelinkid);
 
   if (!imageLink) {
     res.status(404);
     throw new Error("Image link not found");
   }
 
-  if (!req.user) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
+  //   if (!req.user) {
+  //     res.status(401);
+  //     throw new Error("Not authorized");
+  //   }
 
-  if (imageLink.user.toString() !== req.user._id.toString()) {
-    res.status(401);
-    throw new Error("Not authorized");
-  }
+  //   if (imageLink.user.toString() !== req.user._id.toString()) {
+  //     res.status(401);
+  //     throw new Error("Not authorized");
+  //   }
 
-  await imageLink.remove();
+  await ImageLink.findByIdAndDelete(req.params.imagelinkid);
 
-  res.status(200).json({ id: req.params.id });
+  //res.status(200).json({ id: req.params.id });
+  res.status(200).json(`Image link ${req.params.imagelinkid} deleted`);
 });
 
 // @desc   Obtain an image from obtained by multer
@@ -186,3 +185,13 @@ const deleteImage = asyncHandler(async (req, res) => {
   // Send the id of the deleted image to the client
   res.status(200).json({ id: req.params.imageid });
 });
+
+module.exports = {
+  createImageLink,
+  getAllImageLinks,
+  getSingleImageLink,
+  updateSingleImageLink,
+  deleteSingleImageLink,
+  getImage,
+  deleteImage,
+};
