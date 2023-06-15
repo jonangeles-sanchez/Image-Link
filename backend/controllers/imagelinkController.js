@@ -28,7 +28,7 @@ const createImageLink = asyncHandler(async (req, res) => {
 // @access  Public
 const getAllImageLinks = asyncHandler(async (req, res) => {
   // Get all imageLinks associated with the user
-  const imageLinks = await ImageLink.find({ user: req.params.userid });
+  const imageLinks = await ImageLink.find({ user: req.user.id });
 
   res.status(200).json(imageLinks);
 });
