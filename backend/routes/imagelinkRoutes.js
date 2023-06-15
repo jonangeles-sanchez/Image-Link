@@ -9,13 +9,17 @@ const {
   getImage,
   deleteImage,
 } = require("../controllers/imagelinkController");
+const { protect } = require("../middleware/auth");
 
-router.route("/").get(getAllImageLinks).post(createImageLink);
+router.route("/").get(protect, getAllImageLinks).post(protect, createImageLink);
 router
   .route("/:imagelinkid")
-  .get(getSingleImageLink)
-  .put(updateSingleImageLink)
-  .delete(deleteSingleImageLink);
-router.route("/:imagelinkid/imageid").get(getImage).delete(deleteImage);
+  .get(protect, getSingleImageLink)
+  .put(protect, updateSingleImageLink)
+  .delete(protect, deleteSingleImageLink);
+router
+  .route("/:imagelinkid/imageid")
+  .get(protect, getImage)
+  .delete(protect, deleteImage);
 
 module.exports = router;

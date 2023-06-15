@@ -60,15 +60,15 @@ const updateSingleImageLink = asyncHandler(async (req, res) => {
     throw new Error("Image link not found");
   }
 
-  //   if (!req.user) {
-  //     res.status(401);
-  //     throw new Error("Not authorized");
-  //   }
+  if (!req.user) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
 
-  //   if (imageLink.user.toString() !== req.user._id.toString()) {
-  //     res.status(401);
-  //     throw new Error("Not authorized");
-  //   }
+  if (imageLink.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
 
   const updatedImageLink = await ImageLink.findByIdAndUpdate(
     req.params.imagelinkid,
@@ -92,15 +92,17 @@ const deleteSingleImageLink = asyncHandler(async (req, res) => {
     throw new Error("Image link not found");
   }
 
-  //   if (!req.user) {
-  //     res.status(401);
-  //     throw new Error("Not authorized");
-  //   }
+  // Auth middleware adds req.user to the request
+  // If req.user is not found, throw an error
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
 
-  //   if (imageLink.user.toString() !== req.user._id.toString()) {
-  //     res.status(401);
-  //     throw new Error("Not authorized");
-  //   }
+  if (imageLink.user.toString() !== req.user._id.toString()) {
+    res.status(401);
+    throw new Error("Not authorized");
+  }
 
   await ImageLink.findByIdAndDelete(req.params.imagelinkid);
 
