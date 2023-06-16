@@ -93,7 +93,7 @@ const updateSingleImageLink = asyncHandler(async (req, res) => {
     {
       title: req.body.title || imageLink.title,
       description: req.body.description || imageLink.description,
-      images: imageLink.images.concat(updatedImages),
+      images: updatedImages,
     },
     { new: true }
   );
@@ -131,11 +131,11 @@ const deleteSingleImageLink = asyncHandler(async (req, res) => {
 });
 
 // @desc   Obtain an image from obtained by multer
-// @route  POST /api/imagelinks/:imageid
+// @route  POST /api/:imagelinkid/:imageid
 // @access Private
 const getImage = asyncHandler(async (req, res) => {
   // Get the image id from the request and find the image in the ImageLink collection
-  const imageLink = await ImageLink.findById(req.params.imageid);
+  const imageLink = await ImageLink.findById(req.params.imagelinkid);
 
   // If the image is not found, throw an error
   if (!imageLink) {
@@ -153,8 +153,12 @@ const getImage = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
-  // If the image is found, get the image from the Image collection
-  const image = await Image.findById(imageLink.image);
+  // ImageLink holds an array of objects with the image id
+  // Find the image in the imagelink array of objects that hold the image id and the image object
+
+  const image = await imageLink.images.find(
+    (image) => image._id.toString() === req.params.imageid.toString()
+  );
 
   // If the image is not found, throw an error
   if (!image) {
@@ -162,7 +166,7 @@ const getImage = asyncHandler(async (req, res) => {
     throw new Error("Image not found");
   }
 
-  // If the image is found, send the image to the client
+  // If the image is found, send the image
   res.status(200).json(image);
 });
 
