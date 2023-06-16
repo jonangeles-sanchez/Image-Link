@@ -1,4 +1,7 @@
 const asyncHandler = require("express-async-handler");
+const Image = require("../models/imageModel");
+const fs = require("fs");
+const path = require("path");
 
 const ImageLink = require("../models/imagelinkModel");
 
@@ -70,12 +73,29 @@ const updateSingleImageLink = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
+  const updatedImages = await Promise.all(
+    req.files.map(async (file) => {
+      const saveImage = new Image({
+        name: file.filename,
+        img: {
+          data: fs.readFileSync(
+            path.join(__dirname, "../public/uploads", file.filename)
+          ),
+          contentType: file.mimetype,
+        },
+      });
+      return await saveImage.save();
+    })
+  );
+
   const updatedImageLink = await ImageLink.findByIdAndUpdate(
     req.params.imagelinkid,
-    req.body,
     {
-      new: true, // new: true returns the updated object
-    }
+      title: req.body.title || imageLink.title,
+      description: req.body.description || imageLink.description,
+      images: imageLink.images.concat(updatedImages),
+    },
+    { new: true }
   );
 
   res.status(200).json(updatedImageLink);
