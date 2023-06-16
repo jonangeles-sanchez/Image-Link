@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Image = require("../models/imageModel");
 const fs = require("fs");
 const path = require("path");
+const mongoose = require("mongoose");
 
 const ImageLink = require("../models/imagelinkModel");
 
@@ -174,8 +175,8 @@ const getImage = asyncHandler(async (req, res) => {
 // @route  DELETE /api/imagelinks/:imageid
 // @access Private
 const deleteImage = asyncHandler(async (req, res) => {
-  // Get the image id from the request and find the image in the ImageLink collection
-  const imageLink = await ImageLink.findById(req.params.imageid);
+  // Get the imagelink id from the request
+  const imageLink = await ImageLink.findById(req.params.imagelinkid);
 
   // If the image is not found, throw an error
   if (!imageLink) {
@@ -193,8 +194,10 @@ const deleteImage = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
-  // If the image is found, get the image from the Image collection
-  const image = await Image.findById(imageLink.image);
+  // Search for the image in the ImageLink connection that matches the image id
+  const image = await imageLink.images.find(
+    (image) => image._id.toString() === req.params.imageid.toString()
+  );
 
   // If the image is not found, throw an error
   if (!image) {
@@ -203,10 +206,18 @@ const deleteImage = asyncHandler(async (req, res) => {
   }
 
   // If the image is found, delete the image
-  await image.remove();
-
-  // Delete the image link
-  await imageLink.remove();
+  // Remove the image from the ImageLink array of images
+  // ImageLink document holds an array of images
+  // The array of images holds an object with the image id and the image object
+  const updatedImageLink = await ImageLink.findOneAndUpdate(
+    { _id: req.params.imagelinkid },
+    {
+      $pull: {
+        images: { _id: new mongoose.Types.ObjectId(req.params.imageid) },
+      },
+    },
+    { new: true }
+  );
 
   // Send the id of the deleted image to the client
   res.status(200).json({ id: req.params.imageid });
