@@ -11,7 +11,7 @@ function MainNavigation() {
             <b className="name">ImageLink</b>
           </NavLink>
           <button className="new-imagelink">
-            <NavLink to="/imagelink" end>
+            <NavLink to="/newimagelink" end>
               <b>New ImageLink</b>
             </NavLink>
           </button>
