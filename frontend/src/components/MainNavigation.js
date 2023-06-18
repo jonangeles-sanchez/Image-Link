@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import CodeInput from "./CodeInput";
+import background from "./assets/card-red-glow.png";
 
 function MainNavigation() {
   return (

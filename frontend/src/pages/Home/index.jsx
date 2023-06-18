@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Reveal from "../../components/Reveal";
 import moment_1 from "../../components/moment_1.mp4";
 import upload from "../../components/upload2.gif";
+import share from "../../components/assets/understand.png";
 
 function index() {
   return (
@@ -23,33 +24,33 @@ function index() {
             </Card>
           </Reveal>
           <Reveal delay={3.5}>
-            <p>
-              <span className="word-moment">Capture</span> your moments
-            </p>
+            <Card>
+              <p>
+                <span className="word-moment">Capture</span> your moments
+              </p>
+            </Card>
           </Reveal>
         </div>
 
         <div className="home-upload">
           <Reveal delay={3.5}>
-            <p>
-              Easily <span className="word-moment">upload </span>
-              and create <span className="word-moment">ImageLinks</span>
-            </p>
-          </Reveal>
-          <Reveal delay={3}>
-            <img src={upload} height={"100px"} alt="upload" />
+            <Card>
+              <p>
+                Easily <span className="word-moment">upload </span>
+                and create <span className="word-moment">ImageLinks</span>
+              </p>
+            </Card>
           </Reveal>
         </div>
 
         <div className="home-upload">
           <Reveal delay={3.5}>
-            <p>
-              And <span className="word-moment">share </span>
-              your <span className="word-moment">ImageLink!</span>
-            </p>
-          </Reveal>
-          <Reveal delay={3}>
-            <img src={upload} height={"100px"} alt="upload" />
+            <Card>
+              <p>
+                And <span className="word-moment-bl">share </span>
+                your <span className="word-moment-bl">ImageLink!</span>
+              </p>
+            </Card>
           </Reveal>
         </div>
       </div>

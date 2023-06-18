@@ -199,7 +199,7 @@ button {
 /* CodeInput  End*/
 
 .home-content {
-  background-color: #2e3035;
+  background-color: #171544;
 }
 
 .home-welcome {
@@ -229,7 +229,6 @@ button {
   padding: 0;
   margin: 0;
   line-height: 1;
-  text-shadow: black 0.1em 0.1em 0.8em;
 }
 
 /*
@@ -255,6 +254,9 @@ video {
 .word-moment {
   color: #7b61ff;
 }
+.word-moment-bl {
+  color: #7b61ff;
+}
 
 .home-upload {
   font-size: 5em;
@@ -262,4 +264,10 @@ video {
   font-family: "Roboto Mono", monospace;
   padding: 0;
   margin: 0;
+}
+
+.card-capture {
+  background-image: url("./components/assets/star-cluster-purple.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
