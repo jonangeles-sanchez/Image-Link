@@ -1,60 +1,33 @@
 import { NavLink } from "react-router-dom";
 import CodeInput from "./CodeInput";
-import cam from "./cam.png";
-
-import classes from "./MainNavigation.module.css";
 
 function MainNavigation() {
   return (
-    <header className={classes.header}>
+    <header className="home-header">
       <nav>
-        <ul className={classes.list}>
-          <li>
-            <NavLink to="/">
-              <b className={classes.name}>ImageLink</b>
+        <div className="left-header">
+          <NavLink to="/">
+            <b className="name">ImageLink</b>
+          </NavLink>
+          <button className="new-imagelink">
+            <NavLink to="/imagelink" end>
+              <b>New ImageLink</b>
             </NavLink>
-          </li>
-          <li>
-            <button>
-              <NavLink
-                to="/imagelink"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-                end
-              >
-                <b>New ImageLink</b>
-              </NavLink>
-            </button>
-          </li>
-          <li>
-            <CodeInput />
-          </li>
-          <li>
-            <button className={classes.login}>
-              <NavLink
-                to="/auth?mode=login"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                <b>Login</b>
-              </NavLink>
-            </button>
-          </li>
-          <li>
-            <button>
-              <NavLink
-                to="/auth?mode=signup"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                <b>Sign-up</b>
-              </NavLink>
-            </button>
-          </li>
-        </ul>
+          </button>
+        </div>
+        <CodeInput />
+        <div className="right-header">
+          <button className="login">
+            <NavLink to="/auth?mode=login">
+              <b>Login</b>
+            </NavLink>
+          </button>
+          <button className="signup">
+            <NavLink to="/auth?mode=signup">
+              <b>Sign-up</b>
+            </NavLink>
+          </button>
+        </div>
       </nav>
     </header>
   );

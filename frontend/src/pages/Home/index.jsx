@@ -1,30 +1,58 @@
 import Card from "../../components/Card";
 import { motion } from "framer-motion";
+import Reveal from "../../components/Reveal";
+import moment_1 from "../../components/moment_1.mp4";
+import upload from "../../components/upload2.gif";
 
 function index() {
   return (
     <div className="home-container">
+      <div className="home-small-text">
+        <Reveal delay={2}>
+          <h3>The best way to share your best moments across any device</h3>
+        </Reveal>
+      </div>
       <div className="home-content">
-        <div className="home-welcome">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1.7 }}
-          >
-            <h3>Welcome to</h3>
-          </motion.div>
+        <div className="home-capture">
+          <Reveal delay={3}>
+            <Card>
+              <video height={"50%"} width={"100%"} autoPlay loop muted>
+                {" "}
+                <source src={moment_1} type="video/mp4" />
+              </video>
+            </Card>
+          </Reveal>
+          <Reveal delay={3.5}>
+            <p>
+              <span className="word-moment">Capture</span> your moments
+            </p>
+          </Reveal>
+        </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2, duration: 1.5 }}
-          >
-            <h3>ImageLink!</h3>
-          </motion.div>
+        <div className="home-upload">
+          <Reveal delay={3.5}>
+            <p>
+              Easily <span className="word-moment">upload </span>
+              and create <span className="word-moment">ImageLinks</span>
+            </p>
+          </Reveal>
+          <Reveal delay={3}>
+            <img src={upload} height={"100px"} alt="upload" />
+          </Reveal>
+        </div>
+
+        <div className="home-upload">
+          <Reveal delay={3.5}>
+            <p>
+              And <span className="word-moment">share </span>
+              your <span className="word-moment">ImageLink!</span>
+            </p>
+          </Reveal>
+          <Reveal delay={3}>
+            <img src={upload} height={"100px"} alt="upload" />
+          </Reveal>
         </div>
       </div>
-      <div className="home-info"></div>
-      <div className="home-about"></div>
     </div>
   );
 }
