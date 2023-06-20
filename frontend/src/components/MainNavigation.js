@@ -1,8 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CodeInput from "./CodeInput";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, reset } from "../features/auth/authSlice";
 import background from "./assets/card-red-glow.png";
 
 function MainNavigation() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
     <header className="home-header">
       <nav>
@@ -18,16 +30,28 @@ function MainNavigation() {
         </div>
         <CodeInput />
         <div className="right-header">
-          <button className="login">
-            <NavLink to="/auth?mode=login">
-              <b>Login</b>
-            </NavLink>
-          </button>
-          <button className="signup">
-            <NavLink to="/auth?mode=signup">
-              <b>Sign-up</b>
-            </NavLink>
-          </button>
+          {!user ? (
+            <>
+              <button className="login">
+                <NavLink to="/auth?mode=login">
+                  <b>Login</b>
+                </NavLink>
+              </button>
+              <button className="signup">
+                <NavLink to="/auth?mode=signup">
+                  <b>Sign-up</b>
+                </NavLink>
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="signup" onClick={handleLogout}>
+                <NavLink to="/auth?mode=signup">
+                  <b>Logout</b>
+                </NavLink>
+              </button>
+            </>
+          )}
         </div>
       </nav>
     </header>
