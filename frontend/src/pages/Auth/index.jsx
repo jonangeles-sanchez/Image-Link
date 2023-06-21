@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 //import { login, reset } from "../features/auth/authSlice";
 import Spinner from "../../components/assets/26pFklJn2H.gif";
+import { login, register, reset } from "../../features/auth/authSlice";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -15,49 +16,54 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //   const { user, isLoading, isError, isSuccess, message } = useSelector(
-  //     (state) => state.auth
-  //   );
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
 
-  //   useEffect(() => {
-  //     if (isError) {
-  //       //toast.error(message);
-  //     }
+  useEffect(() => {
+    if (isError) {
+      //toast.error(message);
+    }
 
-  //     if (isSuccess || user) {
-  //       navigate("/");
-  //     }
+    if (isSuccess || user) {
+      navigate("/");
+    }
 
-  //     //dispatch(reset());
-  //   }, [user, isError, isSuccess, message, navigate, dispatch]);
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-  //   const onChange = (e) => {
-  //     setFormData((prevState) => ({
-  //       ...prevState,
-  //       [e.target.name]: e.target.value,
-  //     }));
-  //   };
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   //   if (isLoading) return <Spinner />;
-
-  //   const onSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     const userData = {
-  //       email,
-  //       password,
-  //     };
-  //     //dispatch(login(userData));
-  //   };
-  const onChange = (e) => {
-    console.log("nothing here");
-  };
+  const mode = new URLSearchParams(window.location.search).get("mode");
 
   const onSubmit = (e) => {
-    console.log("nothing here");
-  };
+    e.preventDefault();
 
-  const mode = new URLSearchParams(window.location.search).get("mode");
+    if (mode === "login") {
+      const userData = {
+        email,
+        password,
+      };
+      dispatch(login(userData));
+    } else {
+      if (password !== password2) {
+        alert("Passwords do not match");
+        return;
+      }
+      const userData = {
+        name,
+        email,
+        password,
+      };
+      dispatch(register(userData));
+    }
+  };
 
   return (
     <>
