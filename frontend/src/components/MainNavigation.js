@@ -33,12 +33,12 @@ function MainNavigation() {
           {!user ? (
             <>
               <button className="login">
-                <NavLink to="/auth?mode=login">
+                <NavLink to="/login">
                   <b>Login</b>
                 </NavLink>
               </button>
               <button className="signup">
-                <NavLink to="/auth?mode=signup">
+                <NavLink to="/signup">
                   <b>Sign-up</b>
                 </NavLink>
               </button>
@@ -46,7 +46,7 @@ function MainNavigation() {
           ) : (
             <>
               <button className="signup" onClick={handleLogout}>
-                <NavLink to="/auth?mode=signup">
+                <NavLink to="/signup">
                   <b>Logout</b>
                 </NavLink>
               </button>
