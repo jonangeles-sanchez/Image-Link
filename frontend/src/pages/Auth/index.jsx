@@ -7,10 +7,24 @@ import Spinner from "../../components/assets/26pFklJn2H.gif";
 import { login, register, reset } from "../../features/auth/authSlice";
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const mode = new URLSearchParams(window.location.search).get("mode");
+
+  let state;
+  if (mode === "signup") {
+    state = {
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
+    };
+  } else {
+    state = {
+      email: "",
+      password: "",
+    };
+  }
+
+  const [formData, setFormData] = useState(state);
   const { name, email, password, password2 } = formData;
 
   const navigate = useNavigate();
@@ -40,7 +54,6 @@ function Login() {
   };
 
   //   if (isLoading) return <Spinner />;
-  const mode = new URLSearchParams(window.location.search).get("mode");
 
   const onSubmit = (e) => {
     e.preventDefault();
