@@ -13,7 +13,7 @@ function ImageLinks(props) {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { links } = useSelector((state) => state.imagelink);
-  console.log(links);
+  //console.log(links);
   const ref = useRef(null);
   const selectedImageLink = props.selected;
 
@@ -59,7 +59,7 @@ function ImageLinks(props) {
                 className="folder-image"
                 src={folder}
                 alt="folder"
-                id="joe123"
+                id={link._id}
               />
             </button>
             <p className="folder-name">{link.title}</p>

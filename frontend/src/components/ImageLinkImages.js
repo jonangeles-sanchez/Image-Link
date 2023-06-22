@@ -15,7 +15,7 @@ function ImageLinkImages(props) {
   const dispatch = useDispatch();
 
   const { links } = useSelector((state) => state.imagelink);
-  console.log(links);
+  //console.log(links);
 
   const handleSelect = (e) => {
     const id = e.target.id;
@@ -31,9 +31,9 @@ function ImageLinkImages(props) {
     }
   };
 
-  useEffect(() => {
-    console.log(selectedImages);
-  }, [selectedImages]);
+  //   useEffect(() => {
+  //     console.log(selectedImages);
+  //   }, [selectedImages]);
 
   return (
     <>
@@ -54,26 +54,26 @@ function ImageLinkImages(props) {
       </div>
       <div className="imagelink-collection">
         <div>
-          <div>
-            <img
-              className="imagelink-image"
-              src={folder}
-              alt="folder"
-              id="abc123"
-              onClick={handleSelect}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
-            <img
-              className="imagelink-image"
-              src={folder}
-              alt="folder"
-              id="xyz321"
-              onClick={handleSelect}
-            />
-          </div>
+          {(() => {
+            const imagelink = links.find(
+              (link) => link._id === selectedImageLink
+            );
+            if (!imagelink) {
+              return null;
+            }
+            console.log(imagelink);
+            return imagelink.images.map((image) => (
+              <div className="imagelink-image">
+                <img
+                  className="imagelink-image"
+                  src={`data:image/png;base64,${image.img.data}`}
+                  alt="imagelink"
+                  id={image._id}
+                  onClick={handleSelect}
+                />
+              </div>
+            ));
+          })()}
         </div>
       </div>
     </>
