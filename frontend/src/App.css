@@ -455,3 +455,44 @@ ul {
   font-family: "Roboto Mono", monospace;
   color: #bd26fe;
 }
+
+.button-delete-collection {
+  color: linear-gradient(180deg, #2f64fe, white);
+  border: none;
+  color: #bd26fe;
+  font-size: 1.5rem;
+  font-family: "Exo", sans-serif;
+  font-family: "Roboto Mono", monospace;
+}
+.button-delete-image {
+  margin-top: 8%;
+  color: linear-gradient(180deg, #2f64fe, white);
+  border: none;
+  color: #bd26fe;
+  font-size: 1.5rem;
+  font-family: "Exo", sans-serif;
+  font-family: "Roboto Mono", monospace;
+}
+
+.button-share-collection {
+  color: linear-gradient(180deg, #2f64fe, white);
+  border: none;
+  color: #bd26fe;
+  font-size: 1.5rem;
+  font-family: "Exo", sans-serif;
+  font-family: "Roboto Mono", monospace;
+}
+
+.buttons-actions-collection {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.buttons-actions-image {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 25%;
+  margin-right: 25%;
+}
