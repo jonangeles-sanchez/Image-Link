@@ -4,7 +4,10 @@ import ImageLinkUpload from "../../components/ImageLinkUpload";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllLinks } from "../../features/imagelink/imagelinkSlice";
+import {
+  getAllLinks,
+  createImageLink,
+} from "../../features/imagelink/imagelinkSlice";
 import { useState } from "react";
 
 function NewImageLink() {
@@ -14,13 +17,21 @@ function NewImageLink() {
   const dispatch = useDispatch();
   const [selectedLink, setSelectedLink] = useState(null);
   const [newLink, setNewLink] = useState(false);
+  const [formFields, setFormFields] = useState({
+    user: user._id,
+    title: "",
+    description: "",
+    images: [], // Keep empty for now
+  });
+
+  const { title, description } = formFields;
 
   useEffect(() => {
     if (!user) {
       navigate("/login");
     }
     dispatch(getAllLinks());
-  }, [user, newLink, navigate, dispatch]);
+  }, [user, navigate, dispatch]);
 
   const handleSelectLink = (e) => {
     setSelectedLink(e.target.value);
@@ -37,7 +48,16 @@ function NewImageLink() {
 
   const handleCreate = () => {
     setNewLink(false);
+    dispatch(createImageLink(formFields));
   };
+
+  const handleChange = (e) => {
+    setFormFields({ ...formFields, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    console.log(formFields);
+  }, [formFields]);
 
   return (
     <div className="upload-section">
@@ -48,11 +68,25 @@ function NewImageLink() {
           <>
             <form className="form-group">
               <label htmlFor="title">Title</label>
-              <input type="text" name="title" id="title" />
+              <input
+                type="text"
+                name="title"
+                id="title"
+                value={title}
+                placeholder="Enter title"
+                onChange={handleChange}
+              />
               <label htmlFor="description">Description</label>
-              <input type="text" name="description" id="description" />
+              <input
+                type="text"
+                name="description"
+                id="description"
+                value={description}
+                placeholder="Enter description"
+                onChange={handleChange}
+              />
               <button
-                onSubmit={handleCreate}
+                onClick={handleCreate}
                 className="button-share-collection"
               >
                 Create
