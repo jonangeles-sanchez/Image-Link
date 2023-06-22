@@ -14,6 +14,14 @@ const getImageLinks = async (token) => {
 };
 
 // Create a new imagelink
+const createImageLink = async (token, data) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios.post(API_URL, data, config);
+};
 
 // get a specific imagelink
 
@@ -23,6 +31,7 @@ const getImageLinks = async (token) => {
 
 const imagelinkService = {
   getImageLinks,
+  createImageLink,
 };
 
 export default imagelinkService;
