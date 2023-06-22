@@ -1,10 +1,17 @@
 import ImageLinks from "../../components/ImageLinks";
 import ImageLinkImages from "../../components/ImageLinkImages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ImageLinkPage() {
   const [selectedImageLink, setSelectedImageLink] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
+
+  useEffect(() => {
+    console.log("--- ImageLinkPage ---");
+    console.log("Selected Image Link: ", selectedImageLink);
+    console.log("Selected Images: ", selectedImages);
+    console.log("--- ImageLinkPage ---");
+  }, [selectedImageLink, selectedImages]);
 
   return (
     <div>
