@@ -496,3 +496,16 @@ ul {
   margin-left: 25%;
   margin-right: 25%;
 }
+
+.imagelink-select-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.cancel {
+  margin-left: 10%;
+}
