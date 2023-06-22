@@ -49,51 +49,22 @@ function ImageLinks(props) {
         <h1 className="imagelink-title">ImageLinks</h1>
       </div>
       <ul ref={ref}>
-        <li className="round-imagelink">
-          <button className="button-imagelink" onClick={handleSelectImageLink}>
-            <img
-              className="folder-image"
-              src={folder}
-              alt="folder"
-              id="joe123"
-            />
-          </button>
-          <p className="folder-name">Your mom in a thong</p>
-        </li>
-        <li className="round-imagelink">
-          <button className="button-imagelink" onClick={handleSelectImageLink}>
-            <img
-              className="folder-image"
-              src={folder}
-              alt="folder"
-              id="bob445"
-            />
-          </button>
-          <p className="folder-name">Your mom in a thong</p>
-        </li>
-        <li className="round-imagelink">
-          <button className="button-imagelink" onClick={handleSelectImageLink}>
-            <img
-              className="folder-image"
-              src={folder}
-              alt="folder"
-              id="jon90"
-            />
-          </button>
-          <p className="folder-name">Your mom in a thong</p>
-        </li>
-        <li className="round-imagelink">
-          <button className="button-imagelink">
-            <img className="folder-image" src={folder} alt="folder" />
-          </button>
-          <p className="folder-name">Your mom in a thong</p>
-        </li>
-        <li className="round-imagelink">
-          <button className="button-imagelink">
-            <img className="folder-image" src={folder} alt="folder" />
-          </button>
-          <p className="folder-name">Your mom in a thong</p>
-        </li>
+        {links.map((link) => (
+          <li className="round-imagelink">
+            <button
+              className="button-imagelink"
+              onClick={handleSelectImageLink}
+            >
+              <img
+                className="folder-image"
+                src={folder}
+                alt="folder"
+                id="joe123"
+              />
+            </button>
+            <p className="folder-name">{link.title}</p>
+          </li>
+        ))}
       </ul>
       {selectedImageLink && (
         <div className="buttons-actions-collection">
