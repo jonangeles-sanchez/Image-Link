@@ -1,9 +1,26 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { color, motion, useScroll } from "framer-motion";
 import folder from "../../components/assets/imagelink_folder.png";
+import timage from "../../components/assets/understand.png";
 
 function ImageLinks() {
   const ref = useRef(null);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const handleSelect = (e) => {
+    const id = e.target.id;
+    if (selectedImages.includes(id)) {
+      setSelectedImages(selectedImages.filter((image) => image !== id));
+      e.target.style.border = "none";
+    } else {
+      setSelectedImages([...selectedImages, id]);
+      e.target.style.border = "13px solid #FFC947";
+    }
+  };
+
+  useEffect(() => {
+    console.log(selectedImages);
+  }, [selectedImages]);
 
   return (
     <>
@@ -49,30 +66,24 @@ function ImageLinks() {
         <div className="imagelink-collection">
           <div>
             <div>
-              <a href="https://www.google.com">
-                <img className="imagelink-image" src={folder} alt="folder" />
-              </a>
+              <img
+                className="imagelink-image"
+                src={folder}
+                alt="folder"
+                id="abc123"
+                onClick={handleSelect}
+              />
             </div>
           </div>
           <div>
             <div>
-              <a href="https://www.google.com">
-                <img className="imagelink-image" src={folder} alt="folder" />
-              </a>
-            </div>
-          </div>
-          <div>
-            <div>
-              <a href="https://www.google.com">
-                <img className="imagelink-image" src={folder} alt="folder" />
-              </a>
-            </div>
-          </div>
-          <div>
-            <div>
-              <a href="https://www.google.com">
-                <img className="imagelink-image" src={folder} alt="folder" />
-              </a>
+              <img
+                className="imagelink-image"
+                src={folder}
+                alt="folder"
+                id="xyz321"
+                onClick={handleSelect}
+              />
             </div>
           </div>
         </div>
