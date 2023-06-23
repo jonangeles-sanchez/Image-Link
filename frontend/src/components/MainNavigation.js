@@ -1,60 +1,58 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import CodeInput from "./CodeInput";
-import cam from "./cam.png";
-
-import classes from "./MainNavigation.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, reset } from "../features/auth/authSlice";
+import background from "./assets/card-red-glow.png";
 
 function MainNavigation() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate("/");
+  };
+
   return (
-    <header className={classes.header}>
+    <header className="home-header">
       <nav>
-        <ul className={classes.list}>
-          <li>
-            <NavLink to="/">
-              <b className={classes.name}>ImageLink</b>
+        <div className="left-header">
+          <NavLink to="/">
+            <b className="name">ImageLink</b>
+          </NavLink>
+          <button className="new-imagelink">
+            <NavLink to="/newimagelink" end>
+              <b>New ImageLink</b>
             </NavLink>
-          </li>
-          <li>
-            <button>
-              <NavLink
-                to="/imagelink"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-                end
-              >
-                <b>New ImageLink</b>
-              </NavLink>
-            </button>
-          </li>
-          <li>
-            <CodeInput />
-          </li>
-          <li>
-            <button className={classes.login}>
-              <NavLink
-                to="/auth?mode=login"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                <b>Login</b>
-              </NavLink>
-            </button>
-          </li>
-          <li>
-            <button>
-              <NavLink
-                to="/auth?mode=signup"
-                className={({ isActive }) =>
-                  isActive ? classes.active : undefined
-                }
-              >
-                <b>Sign-up</b>
-              </NavLink>
-            </button>
-          </li>
-        </ul>
+          </button>
+        </div>
+        <CodeInput />
+        <div className="right-header">
+          {!user ? (
+            <>
+              <button className="login">
+                <NavLink to="/login">
+                  <b>Login</b>
+                </NavLink>
+              </button>
+              <button className="signup">
+                <NavLink to="/signup">
+                  <b>Sign-up</b>
+                </NavLink>
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="signup" onClick={handleLogout}>
+                <NavLink to="/signup">
+                  <b>Logout</b>
+                </NavLink>
+              </button>
+            </>
+          )}
+        </div>
       </nav>
     </header>
   );

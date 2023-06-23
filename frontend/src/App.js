@@ -1,29 +1,31 @@
 import "./App.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import HomePage from "./scenes/homePage";
-import ImageLinkPage from "./scenes/imageLinkPage";
-import AuthPage from "./scenes/authPage";
-import Navbar, { action as FormHandler } from "./scenes/navbar";
-import Error from "./scenes/errorPage";
-
-const router = createBrowserRouter([
-  {
-    name: "Home",
-    path: "/",
-    element: <Navbar />,
-    errorElement: <Error />,
-    action: FormHandler,
-    children: [
-      { index: true, element: <HomePage /> },
-      { path: "auth", element: <AuthPage /> },
-      { path: "imagelink/:id", element: <ImageLinkPage /> },
-      { path: "imagelink/new", element: <ImageLinkPage /> },
-    ],
-  },
-]);
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Header from "./pages/Header";
+import NewImageLink from "./pages/NewImageLink";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ImageLinkPage from "./pages/ImageLinks";
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/newimagelink" element={<NewImageLink />} />
+            <Route path="/imagelinks/" element={<ImageLinkPage />} />
+            {/*<Route path="/imagelink/:id" element={<ImageLink />} />
+             */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </div>
+      </Router>
+    </>
+  );
 }
 
 export default App;

@@ -5,35 +5,32 @@ import {
   useActionData,
   json,
   redirect,
-  useFetcher,
 } from "react-router-dom";
-import classes from "./CodeInput.module.css";
 import SearchGlass from "./searchGlass.png";
 
 function CodeInput() {
-  const fetcher = useFetcher();
   return (
-    <div className={classes.CodeInputContainer}>
-      <fetcher.Form method={"post"} className={classes.CodeInputForm}>
-        <b>Got a code? </b>
+    <div className="CodeInputContainer">
+      <form method={"post"} className="CodeInputForm">
+        <b className="gotcode">Got a code? </b>
         <input
           id="code"
           type="text"
           name="code"
           required
           placeholder="Enter the code here!"
-          className={classes.CodeInput}
+          className="CodeInput"
         />
-        <button type="submit" className={classes.CodeInputButton}>
+        <button type="submit" className="CodeInputButton">
           <img
             src={SearchGlass}
             alt="searching-magnifying-glass"
-            className={classes.CodeInputButtonImage}
+            className="CodeInputButtonImage"
             height={35}
             width={35}
           />
         </button>
-      </fetcher.Form>
+      </form>
     </div>
   );
 }
