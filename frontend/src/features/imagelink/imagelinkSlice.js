@@ -50,6 +50,26 @@ export const createImageLink = createAsyncThunk(
   }
 );
 
+// Update imagelink by id
+export const updateImageLink = createAsyncThunk(
+  "imagelinks/updateImageLink",
+  async ({ data, id }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      await imagelinkService.updateImageLink(token, data, id);
+      return await imagelinkService.getImageLinks(token);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const imagelinkSlice = createSlice({
   name: "auth",
   initialState,
@@ -86,6 +106,20 @@ export const imagelinkSlice = createSlice({
         state.links = action.payload;
       })
       .addCase(createImageLink.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(updateImageLink.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateImageLink.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.links = action.payload;
+      })
+      .addCase(updateImageLink.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

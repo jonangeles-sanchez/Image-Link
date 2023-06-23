@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Dropzone from "react-dropzone";
+import { useDispatch } from "react-redux";
+import { updateImageLink } from "../features/imagelink/imagelinkSlice";
 
 const imagesUploadSchema = Yup.object().shape({
   picture: Yup.string().required("A file is required"),
@@ -10,28 +12,29 @@ const initialValues = {
   picture: [],
 };
 
-function ImageLinkUpload() {
+function ImageLinkUpload(props) {
+  const [files, setFiles] = useState([]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(files);
+  });
+  const handleDeleteUpload = (e) => {
+    //remove the file from the array of files
+  };
   const handleFormSubmit = async (values, onSubmitProps) => {
     //Upload images to the server
     console.log(values);
     const formData = new FormData();
     console.log("Submitting form");
-    for (let i = 0; i < values.picture.length; i++) {
-      formData.append("picture", values.picture[i].name);
-    }
-    console.log(formData);
+    values.picture.forEach((file) => {
+      formData.append("photos", file);
+    });
+    console.log("Form data" + formData);
     // Display the key/value pairs
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
-    // const response = await fetch("/api/upload", {
-    //   method: "POST",
-    //   body: formData,
-    // });
-    // const data = await response.json();
-    // console.log(data);
-    // //Reset the form
-    // resetForm();
+    dispatch(updateImageLink({ data: formData, id: props.currLink }));
   };
   return (
     <div className="upload-container">
@@ -71,11 +74,12 @@ function ImageLinkUpload() {
                       "picture",
                       values.picture.concat(acceptedFiles)
                     );
+                    setFiles([...files, ...acceptedFiles]);
                   }}
                 >
                   {({ getRootProps, getInputProps }) => (
                     <div {...getRootProps({ className: "dropzone" })}>
-                      <input {...getInputProps()} />
+                      <input {...getInputProps({ name: "picture" })} />
                       {values.picture.length === 0 ? (
                         <p>
                           Drag 'n' drop some files here, or click to select
@@ -84,18 +88,28 @@ function ImageLinkUpload() {
                       ) : (
                         //Print each image name in the array
                         values.picture.map((file) => (
-                          <p key={file.name}>
-                            {file.name + " has been chosen."}
-                          </p>
+                          <div>
+                            <p key={file.name}>
+                              {file.name + " has been chosen."}
+                              <button
+                                className="button-delete-upload"
+                                onClick={handleDeleteUpload}
+                              >
+                                Delete
+                              </button>
+                            </p>
+                          </div>
                         ))
                       )}
                       {console.log(values)}
                     </div>
                   )}
                 </Dropzone>
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
+                {files.length > 0 && (
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                )}
               </form>
             )}
           </Formik>

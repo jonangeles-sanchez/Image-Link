@@ -26,12 +26,21 @@ const createImageLink = async (token, data) => {
 // get a specific imagelink
 
 // update a specific imagelink
+const updateImageLink = async (token, data, id) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios.put(API_URL + id, data, config);
+};
 
 // delete a specific imagelink
 
 const imagelinkService = {
   getImageLinks,
   createImageLink,
+  updateImageLink,
 };
 
 export default imagelinkService;
