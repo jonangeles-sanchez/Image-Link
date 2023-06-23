@@ -45,11 +45,22 @@ const deleteImageLink = async (token, id) => {
   await axios.delete(API_URL + id, config);
 };
 
+// delete a specific image from a specific imagelink
+const deleteImageFromImageLink = async (token, id, imageId) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  await axios.delete(API_URL + id + "/" + imageId, config);
+};
+
 const imagelinkService = {
   getImageLinks,
   createImageLink,
   updateImageLink,
   deleteImageLink,
+  deleteImageFromImageLink,
 };
 
 export default imagelinkService;

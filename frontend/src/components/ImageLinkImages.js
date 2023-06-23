@@ -6,7 +6,10 @@ import { useState } from "react";
 import { color, motion, useScroll } from "framer-motion";
 import folder from "./assets/imagelink_folder.png";
 import timage from "./assets/understand.png";
-import { getAllLinks } from "../features/imagelink/imagelinkSlice";
+import {
+  getAllLinks,
+  deleteImageFromImageLink,
+} from "../features/imagelink/imagelinkSlice";
 
 function ImageLinkImages(props) {
   const selectedImageLink = props.selectedImageLink;
@@ -31,6 +34,18 @@ function ImageLinkImages(props) {
     }
   };
 
+  const handleDeleteSelected = () => {
+    if (!selectedImageLink) {
+      return;
+    }
+    dispatch(
+      deleteImageFromImageLink({
+        id: selectedImageLink,
+        imageId: selectedImages,
+      })
+    );
+  };
+
   //   useEffect(() => {
   //     console.log(selectedImages);
   //   }, [selectedImages]);
@@ -43,7 +58,10 @@ function ImageLinkImages(props) {
       <div>
         {selectedImages.length > 0 && selectedImageLink && (
           <div className="buttons-actions-image">
-            <button className="button-delete-image">
+            <button
+              className="button-delete-image"
+              onClick={handleDeleteSelected}
+            >
               Delete selected images
             </button>
             <button className="button-delete-image">
