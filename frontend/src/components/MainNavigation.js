@@ -15,6 +15,10 @@ function MainNavigation() {
     navigate("/");
   };
 
+  const handleViewImages = () => {
+    navigate("/imagelinks");
+  };
+
   return (
     <header className="home-header">
       <nav>
@@ -45,6 +49,9 @@ function MainNavigation() {
             </>
           ) : (
             <>
+              <button className="login" onClick={handleViewImages}>
+                View your image collections
+              </button>
               <button className="signup" onClick={handleLogout}>
                 <NavLink to="/signup">
                   <b>Logout</b>
