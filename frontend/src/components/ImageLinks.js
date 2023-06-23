@@ -64,15 +64,13 @@ function ImageLinks(props) {
       <ul ref={ref}>
         {links.map((link) => (
           <li className="round-imagelink">
-            <button
-              className="button-imagelink"
-              onClick={handleSelectImageLink}
-            >
+            <button className="button-imagelink">
               <img
                 className="folder-image"
                 src={folder}
                 alt="folder"
                 id={link._id}
+                onClick={handleSelectImageLink}
               />
             </button>
             <p className="folder-name">{link.title}</p>
