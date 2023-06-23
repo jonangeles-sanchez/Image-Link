@@ -14,16 +14,14 @@ function SelectImageLink({ links, handleSelectLink, handleNewImageLink }) {
             })}
           </select>
           <p>Or create a new imagelink!</p>
-          <button
-            className="button-share-collection"
-            onClick={handleNewImageLink}
-          >
-            Create new imagelink
-          </button>
         </>
       ) : (
         <p>No imagelinks found</p>
       )}
+
+      <button className="button-share-collection" onClick={handleNewImageLink}>
+        Create new imagelink
+      </button>
     </>
   );
 }
