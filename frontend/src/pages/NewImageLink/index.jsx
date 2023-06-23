@@ -34,8 +34,10 @@ function NewImageLink() {
   }, [user, navigate, dispatch]);
 
   const handleSelectLink = (e) => {
-    setSelectedLink(e.target.value);
-    console.log(`selected link: ${e.target.value}`);
+    // Use id attribute to get the id of the selected link
+    const selectedId = e.target.options[e.target.selectedIndex].id;
+    console.log(selectedId);
+    setSelectedLink(selectedId);
   };
 
   const handleNewImageLink = () => {
