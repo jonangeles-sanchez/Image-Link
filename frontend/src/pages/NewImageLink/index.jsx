@@ -9,6 +9,8 @@ import {
   createImageLink,
 } from "../../features/imagelink/imagelinkSlice";
 import { useState } from "react";
+import ImageLinkNew from "../../components/ImageLinkNew";
+import SelectImageLink from "../../components/SelectImageLink";
 
 function NewImageLink() {
   const { user } = useSelector((state) => state.auth);
@@ -17,14 +19,6 @@ function NewImageLink() {
   const dispatch = useDispatch();
   const [selectedLink, setSelectedLink] = useState(null);
   const [newLink, setNewLink] = useState(false);
-  const [formFields, setFormFields] = useState({
-    user: user._id,
-    title: "",
-    description: "",
-    images: [], // Keep empty for now
-  });
-
-  const { title, description } = formFields;
 
   useEffect(() => {
     if (!user) {
@@ -48,85 +42,26 @@ function NewImageLink() {
     setNewLink(false);
   };
 
-  const handleCreate = () => {
-    setNewLink(false);
-    dispatch(createImageLink(formFields));
-  };
-
-  const handleChange = (e) => {
-    setFormFields({ ...formFields, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    console.log(formFields);
-  }, [formFields]);
-
   return (
     <div className="upload-section">
       <Card>
         {!newLink ? (
           <ImageLinkUpload currLink={selectedLink} />
         ) : (
-          <>
-            <form className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                name="title"
-                id="title"
-                value={title}
-                placeholder="Enter title"
-                onChange={handleChange}
-              />
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                name="description"
-                id="description"
-                value={description}
-                placeholder="Enter description"
-                onChange={handleChange}
-              />
-              <button
-                onClick={handleCreate}
-                className="button-share-collection"
-              >
-                Create
-              </button>
-              <button
-                onClick={handleCancel}
-                className="button-share-collection cancel"
-              >
-                Cancel
-              </button>
-            </form>
-          </>
+          <ImageLinkNew
+            handleCancel={handleCancel}
+            user={user}
+            handleNewImageLink={handleNewImageLink}
+            selectedLink={selectedLink}
+          />
         )}
       </Card>
       <Card>
-        {links.length > 0 ? (
-          <>
-            <p>Select which link to upload to</p>
-            <select className="imagelink-dropdown" onChange={handleSelectLink}>
-              {links.map((link) => {
-                return (
-                  <option key={link.title} id={link._id}>
-                    {link.title}
-                  </option>
-                );
-              })}
-            </select>
-            <p>Or create a new imagelink!</p>
-            <button
-              className="button-share-collection"
-              onClick={handleNewImageLink}
-            >
-              Create new imagelink
-            </button>
-          </>
-        ) : (
-          <p>No imagelinks found</p>
-        )}
+        <SelectImageLink
+          links={links}
+          handleSelectLink={handleSelectLink}
+          handleNewImageLink={handleNewImageLink}
+        />
       </Card>
     </div>
   );
