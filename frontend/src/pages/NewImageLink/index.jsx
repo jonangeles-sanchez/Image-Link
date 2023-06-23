@@ -107,7 +107,11 @@ function NewImageLink() {
             <p>Select which link to upload to</p>
             <select className="imagelink-dropdown" onChange={handleSelectLink}>
               {links.map((link) => {
-                return <option key={link.title}>{link.title}</option>;
+                return (
+                  <option key={link.title} id={link._id}>
+                    {link.title}
+                  </option>
+                );
               })}
             </select>
             <p>Or create a new imagelink!</p>
