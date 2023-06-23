@@ -10,6 +10,7 @@ import {
   getAllLinks,
   deleteImageLink,
 } from "../features/imagelink/imagelinkSlice";
+import { nanoid } from "nanoid";
 
 function ImageLinks(props) {
   const dispatch = useDispatch();
@@ -46,6 +47,15 @@ function ImageLinks(props) {
     }
     dispatch(deleteImageLink(selectedImageLink));
     props.select(null);
+  };
+
+  const handleShareImageLink = () => {
+    if (!selectedImageLink) {
+      alert("Please select an image link to share");
+      return;
+    }
+    const linkid = nanoid(5);
+    dispatch(createLink(linkid, selectedImageLink));
   };
 
   useEffect(() => {
@@ -85,7 +95,12 @@ function ImageLinks(props) {
           >
             Delete ImageLink
           </button>
-          <button className="button-share-collection">Share ImageLink</button>
+          <button
+            className="button-share-collection"
+            onClick={handleShareImageLink}
+          >
+            Share ImageLink
+          </button>
           <button className="button-share-collection">
             <NavLink to="/newimagelink" className="button-share-collection">
               Upload photos
