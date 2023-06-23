@@ -1,12 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { color, motion, useScroll } from "framer-motion";
 import folder from "./assets/imagelink_folder.png";
 import timage from "./assets/understand.png";
-import { getAllLinks } from "../features/imagelink/imagelinkSlice";
+import {
+  getAllLinks,
+  deleteImageLink,
+} from "../features/imagelink/imagelinkSlice";
 
 function ImageLinks(props) {
   const dispatch = useDispatch();
@@ -35,6 +38,16 @@ function ImageLinks(props) {
       }
     }
   };
+
+  const handleDeleteImageLink = () => {
+    if (!selectedImageLink) {
+      alert("Please select an image link to delete");
+      return;
+    }
+    dispatch(deleteImageLink(selectedImageLink));
+    props.select(null);
+  };
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -68,9 +81,18 @@ function ImageLinks(props) {
       </ul>
       {selectedImageLink && (
         <div className="buttons-actions-collection">
-          <button className="button-delete-collection">Delete ImageLink</button>
+          <button
+            className="button-delete-collection"
+            onClick={handleDeleteImageLink}
+          >
+            Delete ImageLink
+          </button>
           <button className="button-share-collection">Share ImageLink</button>
-          <button className="button-share-collection">Upload photos</button>
+          <button className="button-share-collection">
+            <NavLink to="/newimagelink" className="button-share-collection">
+              Upload photos
+            </NavLink>
+          </button>
         </div>
       )}
     </>
