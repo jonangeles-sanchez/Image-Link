@@ -8,7 +8,7 @@ import Modal from "../../components/Modal";
 function ImageLinkPage() {
   const [selectedImageLink, setSelectedImageLink] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [url, setUrl] = useState("http://localhost:3000/");
