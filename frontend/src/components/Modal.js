@@ -1,6 +1,8 @@
 import { RiCloseLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 function Modal(props) {
+  const code = useSelector((state) => state.imagecode.code.code);
   const copyUrl = () => {
     navigator.clipboard.writeText(props.url);
     alert("Copied to clipboard!");
@@ -17,12 +19,13 @@ function Modal(props) {
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
           <div className="modalContent">
-            <input type="text" value={props.url} readOnly />
+            <input type="text" value={props.url + code} readOnly />
+            <p>Or share this code: {code}</p>
           </div>
           <div className="modalActions">
             <div className="actionsContainer">
               <button className="deleteBtn" onClick={copyUrl}>
-                Copy
+                Copy URL
               </button>
               <button className="cancelBtn" onClick={props.closeModal}>
                 Close

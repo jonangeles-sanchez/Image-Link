@@ -11,7 +11,7 @@ function ImageLinkPage() {
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const [url, setUrl] = useState("http://localhost:5000/api/image-links");
+  const [url, setUrl] = useState("http://localhost:3000/");
 
   useEffect(() => {
     console.log("--- ImageLinkPage ---");
@@ -46,13 +46,7 @@ function ImageLinkPage() {
         selected={selectedImages}
         select={setSelectedImages}
       />
-      {isOpen && (
-        <Modal
-          selectedImageLink={selectedImageLink}
-          closeModal={handleCloseModal}
-          url={url}
-        />
-      )}
+      {isOpen && <Modal closeModal={handleCloseModal} url={url} />}
     </div>
   );
 }
