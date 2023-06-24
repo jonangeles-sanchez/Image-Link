@@ -57,6 +57,7 @@ function ImageLinks(props) {
       return;
     }
     setCode(dispatch(createImageLinkCode({ imagelinkid: selectedImageLink })));
+    props.openModal();
   };
 
   useEffect(() => {
