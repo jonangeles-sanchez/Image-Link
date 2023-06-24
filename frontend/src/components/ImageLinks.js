@@ -56,8 +56,16 @@ function ImageLinks(props) {
       alert("Please select an image link to share");
       return;
     }
-    setCode(dispatch(createImageLinkCode({ imagelinkid: selectedImageLink })));
-    props.openModal();
+    // setCode(dispatch(createImageLinkCode({ imagelinkid: selectedImageLink })));
+    // props.openModal();
+    handleShare(props.openModal);
+  };
+
+  const handleShare = async (callback) => {
+    const code = await dispatch(
+      createImageLinkCode({ imagelinkid: selectedImageLink })
+    );
+    callback();
   };
 
   useEffect(() => {
