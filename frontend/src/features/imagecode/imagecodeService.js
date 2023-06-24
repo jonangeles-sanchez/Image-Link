@@ -4,7 +4,7 @@ const API_URL = "/api/code/";
 
 // Create image code
 const createImageLinkCode = async (data) => {
-  const response = await axios.post(API_URL, data.imagelinkid);
+  const response = await axios.post(API_URL, data);
   return response.data;
 };
 

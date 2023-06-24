@@ -11,6 +11,7 @@ import {
   deleteImageLink,
 } from "../features/imagelink/imagelinkSlice";
 import { nanoid } from "nanoid";
+import { createImageLinkCode } from "../features/imagecode/imagecodeSlice";
 
 function ImageLinks(props) {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function ImageLinks(props) {
   //console.log(links);
   const ref = useRef(null);
   const selectedImageLink = props.selected;
+  const [code, setCode] = useState(null);
 
   const handleSelectImageLink = (e) => {
     const id = e.target.id;
@@ -54,9 +56,12 @@ function ImageLinks(props) {
       alert("Please select an image link to share");
       return;
     }
-    const linkid = nanoid(5);
-    dispatch(createLink(linkid, selectedImageLink));
+    setCode(dispatch(createImageLinkCode({ imagelinkid: selectedImageLink })));
   };
+
+  useEffect(() => {
+    console.log(code);
+  }, [code]);
 
   useEffect(() => {
     if (!user) {
