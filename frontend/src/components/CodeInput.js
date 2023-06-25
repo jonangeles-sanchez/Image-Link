@@ -1,17 +1,24 @@
-import {
-  Form,
-  useNavigate,
-  useNavigation,
-  useActionData,
-  json,
-  redirect,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SearchGlass from "./searchGlass.png";
 
 function CodeInput() {
+  const navigate = useNavigate();
+
+  const handleCodeInput = (e) => {
+    e.preventDefault();
+    const code = document.getElementById("code").value;
+    if (code.length !== 5) {
+      alert("Code must be 5 characters long");
+      return;
+    }
+    navigate(`/imagelink/${code}`);
+
+    document.getElementById("code").value = "";
+  };
+
   return (
     <div className="CodeInputContainer">
-      <form method={"post"} className="CodeInputForm">
+      <form className="CodeInputForm">
         <b className="gotcode">Got a code? </b>
         <input
           id="code"
@@ -21,13 +28,14 @@ function CodeInput() {
           placeholder="Enter the code here!"
           className="CodeInput"
         />
-        <button type="submit" className="CodeInputButton">
+        <button className="CodeInputButton">
           <img
             src={SearchGlass}
             alt="searching-magnifying-glass"
             className="CodeInputButtonImage"
             height={35}
             width={35}
+            onClick={handleCodeInput}
           />
         </button>
       </form>
