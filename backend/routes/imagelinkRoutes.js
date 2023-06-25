@@ -28,7 +28,7 @@ const upload = multer({ storage: storage });
 router.route("/").get(protect, getAllImageLinks).post(protect, createImageLink);
 router
   .route("/:imagelinkid")
-  .get(protect, getSingleImageLink)
+  .get(getSingleImageLink)
   .put(protect, upload.array("photos"), updateSingleImageLink)
   .delete(protect, deleteSingleImageLink);
 router

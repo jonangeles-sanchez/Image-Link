@@ -41,7 +41,15 @@ const getAllImageLinks = asyncHandler(async (req, res) => {
 // @route   GET /api/imagelinks/:id
 // @access  Public
 const getSingleImageLink = asyncHandler(async (req, res) => {
-  const imageLink = await ImageLink.findById(req.params.id);
+  const { imagelinkid } = req.params;
+  console.log("ID: ", imagelinkid);
+
+  if (!mongoose.Types.ObjectId.isValid(imagelinkid)) {
+    res.status(400);
+    throw new Error("Invalid image link ID");
+  }
+
+  const imageLink = await ImageLink.findById(imagelinkid);
 
   if (imageLink) {
     res.status(200).json(imageLink);

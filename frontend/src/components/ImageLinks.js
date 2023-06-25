@@ -10,6 +10,8 @@ import {
   getAllLinks,
   deleteImageLink,
 } from "../features/imagelink/imagelinkSlice";
+import { nanoid } from "nanoid";
+import { createImageLinkCode } from "../features/imagecode/imagecodeSlice";
 
 function ImageLinks(props) {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ function ImageLinks(props) {
   //console.log(links);
   const ref = useRef(null);
   const selectedImageLink = props.selected;
+  const [code, setCode] = useState(null);
 
   const handleSelectImageLink = (e) => {
     const id = e.target.id;
@@ -47,6 +50,27 @@ function ImageLinks(props) {
     dispatch(deleteImageLink(selectedImageLink));
     props.select(null);
   };
+
+  const handleShareImageLink = () => {
+    if (!selectedImageLink) {
+      alert("Please select an image link to share");
+      return;
+    }
+    // setCode(dispatch(createImageLinkCode({ imagelinkid: selectedImageLink })));
+    // props.openModal();
+    handleShare(props.openModal);
+  };
+
+  const handleShare = async (callback) => {
+    const code = await dispatch(
+      createImageLinkCode({ imagelinkid: selectedImageLink })
+    );
+    callback();
+  };
+
+  useEffect(() => {
+    console.log(code);
+  }, [code]);
 
   useEffect(() => {
     if (!user) {
@@ -85,7 +109,12 @@ function ImageLinks(props) {
           >
             Delete ImageLink
           </button>
-          <button className="button-share-collection">Share ImageLink</button>
+          <button
+            className="button-share-collection"
+            onClick={handleShareImageLink}
+          >
+            Share ImageLink
+          </button>
           <button className="button-share-collection">
             <NavLink to="/newimagelink" className="button-share-collection">
               Upload photos
