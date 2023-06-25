@@ -20,9 +20,16 @@ function ImageLinkImages(props) {
   const { links } = useSelector((state) => state.imagelink);
   //console.log(links);
 
+  let imagelink = null;
+  if (props.page !== "shared") {
+    imagelink = links.find((link) => link._id === selectedImageLink);
+  } else {
+    imagelink = props.images;
+  }
+
   const handleSelect = (e) => {
     const id = e.target.id;
-    if (!selectedImageLink) {
+    if (!selectedImageLink && props.page !== "shared") {
       return;
     }
     if (selectedImages.includes(id)) {
@@ -34,21 +41,42 @@ function ImageLinkImages(props) {
     }
   };
 
-  const handleDeleteSelected = () => {
-    if (!selectedImageLink) {
+  const handleSelectAll = () => {
+    if (!selectedImageLink && props.page !== "shared") {
       return;
     }
-    dispatch(
-      deleteImageFromImageLink({
-        id: selectedImageLink,
-        imageId: selectedImages,
-      })
-    );
+    const allImages = document.querySelectorAll(".imagelink-image");
+    const allImageIds = Array.from(allImages).map((image) => image.id);
+
+    if (selectedImages.length === allImageIds.length) {
+      props.select([]);
+      allImages.forEach((image) => (image.style.border = "none"));
+    } else {
+      props.select(allImageIds);
+      allImages.forEach((image) => (image.style.border = "13px solid #FFC947"));
+    }
   };
 
-  //   useEffect(() => {
-  //     console.log(selectedImages);
-  //   }, [selectedImages]);
+  const handleDownloadSelected = () => {
+    if (!imagelink) {
+      return;
+    }
+
+    selectedImages.forEach((imageId, index) => {
+      const image = imagelink.images.find((img) => img._id === imageId);
+      if (image) {
+        const link = document.createElement("a");
+        const imageFormat = image.img.contentType.split("/")[1];
+        // Obtain the image name from the image itself
+        const imageName = image.name;
+        link.href = `data:${image.img.contentType};base64,${image.img.data}`;
+        link.download = imageName;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.click();
+      }
+    });
+  };
 
   return (
     <>
@@ -58,16 +86,27 @@ function ImageLinkImages(props) {
       <div>
         {selectedImages.length > 0 && selectedImageLink && (
           <div className="buttons-actions-image">
-            <button
-              className="button-delete-image"
-              onClick={handleDeleteSelected}
-            >
-              Delete selected images
-            </button>
-            <button className="button-delete-image">
-              Download selected images
-            </button>
+            {props.page !== "shared" && (
+              <button className="button-delete-image">
+                Delete selected images
+              </button>
+            )}
           </div>
+        )}
+
+        {props.page === "shared" && (
+          <button className="button-delete-image" onClick={handleSelectAll}>
+            Select All
+          </button>
+        )}
+
+        {selectedImages.length > 0 && (
+          <button
+            className="button-delete-image"
+            onClick={handleDownloadSelected}
+          >
+            Download selected images
+          </button>
         )}
       </div>
       <div className="imagelink-collection">
@@ -86,7 +125,7 @@ function ImageLinkImages(props) {
             return (
               imagelink.images &&
               imagelink.images.map((image) => (
-                <div className="imagelink-image">
+                <div className="image-div">
                   <img
                     className="imagelink-image"
                     src={`data:image/png;base64,${image.img.data}`}
