@@ -55,12 +55,19 @@ const deleteImageFromImageLink = async (token, id, imageId) => {
   await axios.delete(API_URL + id + "/" + imageId, config);
 };
 
+// Get a single imagelink by id
+const getSingleImageLink = async (id) => {
+  const response = await axios.get(API_URL + id);
+  return response.data;
+};
+
 const imagelinkService = {
   getImageLinks,
   createImageLink,
   updateImageLink,
   deleteImageLink,
   deleteImageFromImageLink,
+  getSingleImageLink,
 };
 
 export default imagelinkService;

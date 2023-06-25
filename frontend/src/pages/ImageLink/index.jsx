@@ -1,26 +1,37 @@
 import ImageLinkImages from "../../components/ImageLinkImages";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getImagelinkCode } from "../../features/imagecode/imagecodeSlice";
+import { getSingleImageLink } from "../../features/imagelink/imagelinkSlice";
 
 function ImageLink() {
+  const { code } = useSelector((state) => state.imagecode);
+  const dispatch = useDispatch();
   const codeParam = useParams();
   const id = codeParam.id;
-  const dispatch = useDispatch();
-  const [selectedImageLink, setSelectedImageLink] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
-  //const { user } = useSelector((state) => state.auth);
+  const { singleLink } = useSelector((state) => state.imagelink);
+  console.log("singleLink: ", singleLink);
 
   useEffect(() => {
     console.log("Code from URL: ", id);
     dispatch(getImagelinkCode({ code: id }));
   }, [dispatch, id]);
 
+  useEffect(() => {
+    if (code) {
+      dispatch(getSingleImageLink(code));
+    }
+  }, [dispatch, code]);
+
   return (
     <>
-      <ImageLinkImages selected={selectedImages} />
+      <ImageLinkImages
+        selected={selectedImages}
+        page="shared"
+        images={singleLink}
+      />
     </>
   );
 }

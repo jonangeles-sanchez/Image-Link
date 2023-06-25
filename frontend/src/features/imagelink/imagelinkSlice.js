@@ -112,6 +112,24 @@ export const deleteImageFromImageLink = createAsyncThunk(
   }
 );
 
+// Get a single imagelink by id
+export const getSingleImageLink = createAsyncThunk(
+  "imagelinks/getSingleImageLink",
+  async (id) => {
+    try {
+      return await imagelinkService.getSingleImageLink(id);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return message;
+    }
+  }
+);
+
 export const imagelinkSlice = createSlice({
   name: "auth",
   initialState,
@@ -190,6 +208,20 @@ export const imagelinkSlice = createSlice({
         state.links = action.payload;
       })
       .addCase(deleteImageFromImageLink.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(getSingleImageLink.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSingleImageLink.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.singleLink = action.payload;
+      })
+      .addCase(getSingleImageLink.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

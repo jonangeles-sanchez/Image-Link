@@ -73,24 +73,30 @@ function ImageLinkImages(props) {
       <div className="imagelink-collection">
         <div>
           {(() => {
-            const imagelink = links.find(
-              (link) => link._id === selectedImageLink
-            );
+            let imagelink = null;
+            if (props.page !== "shared") {
+              imagelink = links.find((link) => link._id === selectedImageLink);
+            } else {
+              imagelink = props.images;
+            }
             if (!imagelink) {
               return null;
             }
-            console.log(imagelink);
-            return imagelink.images.map((image) => (
-              <div className="imagelink-image">
-                <img
-                  className="imagelink-image"
-                  src={`data:image/png;base64,${image.img.data}`}
-                  alt="imagelink"
-                  id={image._id}
-                  onClick={handleSelect}
-                />
-              </div>
-            ));
+            console.log("Current:" + imagelink);
+            return (
+              imagelink.images &&
+              imagelink.images.map((image) => (
+                <div className="imagelink-image">
+                  <img
+                    className="imagelink-image"
+                    src={`data:image/png;base64,${image.img.data}`}
+                    alt="imagelink"
+                    id={image._id}
+                    onClick={handleSelect}
+                  />
+                </div>
+              ))
+            );
           })()}
         </div>
       </div>
