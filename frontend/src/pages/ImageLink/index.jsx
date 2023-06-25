@@ -31,6 +31,7 @@ function ImageLink() {
         selected={selectedImages}
         page="shared"
         images={singleLink}
+        select={setSelectedImages}
       />
     </>
   );
