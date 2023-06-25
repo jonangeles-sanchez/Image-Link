@@ -28,11 +28,12 @@ export const createImageLinkCode = createAsyncThunk(
   }
 );
 
-export const getImageLinkCode = createAsyncThunk(
-  "imagecode/getImageLinkCode",
+export const getImagelinkCode = createAsyncThunk(
+  "imagecode/getImagelinkCode",
   async (data, thunkAPI) => {
     try {
-      return await imagecodeService.getImageLinkCode(data);
+      console.log("Data: ", data);
+      return await imagecodeService.getImagelinkCode(data);
     } catch (error) {
       const message =
         (error.response &&
@@ -72,15 +73,15 @@ export const imagecodeSlice = createSlice({
         state.message = action.payload;
         state.code = null;
       })
-      .addCase(getImageLinkCode.pending, (state) => {
+      .addCase(getImagelinkCode.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getImageLinkCode.fulfilled, (state, action) => {
+      .addCase(getImagelinkCode.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.code = action.payload;
       })
-      .addCase(getImageLinkCode.rejected, (state, action) => {
+      .addCase(getImagelinkCode.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

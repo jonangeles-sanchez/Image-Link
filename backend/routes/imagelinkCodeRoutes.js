@@ -5,7 +5,7 @@ const {
   createImagelinkCode,
 } = require("../controllers/imagelinkCodeController");
 
-router.get("/", getImagelinkCode);
+router.get("/:code", getImagelinkCode);
 router.post("/", createImagelinkCode);
 
 module.exports = router;

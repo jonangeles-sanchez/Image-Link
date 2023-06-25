@@ -5,7 +5,7 @@ var { nanoid } = require("nanoid");
 var ID = nanoid();
 
 // @desc    Get imagelink code by slink
-// @route   GET /api/code/:slink
+// @route   GET /api/code/:code
 // @access  Public
 const getImagelinkCode = asyncHandler(async (req, res) => {
   //   const { imagelinkid } = req.body;
@@ -17,7 +17,8 @@ const getImagelinkCode = asyncHandler(async (req, res) => {
   //     throw new Error("Imagelink code not found");
   //   }
 
-  const { code } = req.body;
+  const code = req.params.code;
+  console.log("Your code" + code);
 
   const imagelinkCode = await ImagelinkCode.findOne({ code });
 
