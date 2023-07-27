@@ -51,7 +51,7 @@ nav {
 /* Header */
 .home-header {
   margin: auto;
-  padding: 2rem;
+  padding: 1.2rem;
   justify-content: space-between;
   background-color: #171544;
   background-size: 100%;
@@ -59,6 +59,7 @@ nav {
   z-index: 1;
   overflow: hidden;
   display: flex;
+  height: 40px;
 }
 .left-header {
   display: flex;
@@ -84,15 +85,15 @@ a {
 }
 
 button b {
-  font-size: 1.2rem;
+  font-size: 15px;
 }
 
 b.gotcode {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 b.name {
-  font-size: 3.5rem;
+  font-size: 2rem;
 }
 
 button:hover,
@@ -125,11 +126,11 @@ button {
 .new-imagelink {
   background-color: #1bb76e;
   color: white;
-  padding: 1rem 1rem;
   margin-left: 5%;
-  font-size: 1.2rem;
+  font-size: 0.5rem;
   font-weight: 600;
   cursor: pointer;
+  width: auto;
 }
 
 /* Header End */
@@ -165,8 +166,6 @@ button {
   justify-content: center;
   width: 100%;
   height: 100%;
-  margin-left: 220px;
-  margin-right: 220px;
 }
 
 .CodeInputForm b {
@@ -196,6 +195,66 @@ button {
   border-radius: 0 3px 3px 0;
   height: 54.5px;
 }
+
+/* Mobile styles for screens with width less than or equal to 768px */
+@media (max-width: 768px) {
+  .home-header {
+    /* Mobile-friendly styles for the header */
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 200px; /* Adjust padding as needed */
+  }
+
+  .left-header,
+  .right-header {
+    display: flex;
+    flex-direction: row; /* Display elements in a row */
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .new-imagelink,
+  .login,
+  .signup {
+    margin: 5px;
+    white-space: nowrap; /* Prevent buttons from wrapping to the next line */
+  }
+
+  /* Ensure buttons are not wider than their parent container */
+  .left-header,
+  .right-header {
+    width: 100%; /* Ensure the container takes up the full width */
+    justify-content: space-between; /* Space buttons evenly in the container */
+  }
+
+  /* Reorder elements for mobile view */
+  .name {
+    order: 1; /* ImageLink logo on top */
+    margin-bottom: 10px; /* Add some spacing below the logo */
+  }
+
+  .left-header {
+    order: 2; /* Buttons in the same row with ImageLink logo */
+  }
+
+  .right-header {
+    order: 3; /* Buttons in the same row with ImageLink logo */
+  }
+
+  .CodeInputContainer {
+    order: 4; /* "Got a code?" input on bottom */
+  }
+
+  /* Add some spacing between the buttons */
+  .right-header button {
+    margin: 0 5px;
+  }
+
+  .left-header button {
+    height: 87%;
+  }
+}
+
 /* CodeInput  End*/
 
 .home-content {

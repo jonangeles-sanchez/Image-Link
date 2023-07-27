@@ -50,7 +50,7 @@ function MainNavigation() {
           ) : (
             <>
               <button className="login" onClick={handleViewImages}>
-                View your image collections
+                View collections
               </button>
               <button className="signup" onClick={handleLogout}>
                 <NavLink to="/signup">
