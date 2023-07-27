@@ -14,6 +14,7 @@ const initialValues = {
 
 function ImageLinkUpload(props) {
   const [files, setFiles] = useState([]);
+
   const dispatch = useDispatch();
   useEffect(() => {
     console.log(files);
@@ -34,6 +35,8 @@ function ImageLinkUpload(props) {
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
+    console.log("props.selectedLink: " + props.selectedLink);
+    console.log("onSubmitProps: " + onSubmitProps);
     dispatch(updateImageLink({ data: formData, id: props.currLink }));
   };
   return (
