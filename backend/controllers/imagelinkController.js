@@ -3,6 +3,7 @@ const Image = require("../models/imageModel");
 const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
+const { uploadFile, getFileStream } = require("../middleware/s3");
 
 const ImageLink = require("../models/imagelinkModel");
 
@@ -65,6 +66,10 @@ const getSingleImageLink = asyncHandler(async (req, res) => {
 const updateSingleImageLink = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
 
+  console.log("req.body: ", req.body);
+  console.log("req.files: ", req.files);
+  console.log("req.params.imagelinkid: ", req.params.imagelinkid);
+
   const imageLink = await ImageLink.findById(req.params.imagelinkid);
 
   if (!imageLink) {
@@ -82,17 +87,26 @@ const updateSingleImageLink = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
+  const getS3Key = async (file) => {
+    const data = await uploadFile(file, req.user.createdAt.getTime());
+    console.log(data);
+    return data;
+  };
+
   const updatedImages = await Promise.all(
     req.files.map(async (file) => {
+      const s3Key = await getS3Key(file);
       const saveImage = new Image({
         name: file.filename,
         img: {
-          data: fs.readFileSync(
-            path.join(__dirname, "../public/uploads", file.filename)
-          ),
+          // data: fs.readFileSync(
+          //   path.join(__dirname, "../public/uploads", file.filename)
+          // ),
+          data: s3Key.Key,
           contentType: file.mimetype,
         },
       });
+      console.log("saveImage: ", saveImage);
       return await saveImage.save();
     })
   );
@@ -152,22 +166,27 @@ const getImage = asyncHandler(async (req, res) => {
     throw new Error("ImageLink not found");
   }
 
+  /*
+  // REMOVE AUTHENTICATION TO ALLOW SHARING OF IMAGES
+
   if (!req.user) {
     res.status(401);
     throw new Error("Not authorized");
   }
+  
 
   if (imageLink.user.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error("Not authorized");
   }
-
+*/
   // ImageLink holds an array of objects with the image id
   // Find the image in the imagelink array of objects that hold the image id and the image object
 
-  const image = await imageLink.images.find(
-    (image) => image._id.toString() === req.params.imageid.toString()
-  );
+  // const image = await imageLink.images.find(
+  //   (image) => image._id.toString() === req.params.imageid.toString()
+  // );
+  const image = await getFileStream(req.params.imageid);
 
   // If the image is not found, throw an error
   if (!image) {
@@ -176,7 +195,13 @@ const getImage = asyncHandler(async (req, res) => {
   }
 
   // If the image is found, send the image
-  res.status(200).json(image);
+  //res.status(200).json(image);
+  console.log("image: ", image);
+  //image.data.pipe(res);
+  //image.write(res);
+  //res.status(200).json(image);
+  //return image;
+  res.send(image);
 });
 
 // @desc   delete an image
