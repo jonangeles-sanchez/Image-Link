@@ -21,16 +21,21 @@ function NewImageLink() {
   const [newLink, setNewLink] = useState(false);
 
   useEffect(() => {
+    async function dispatchGetLinks() {
+      await dispatch(getAllLinks());
+    }
     if (!user) {
       navigate("/login");
     }
-    dispatch(getAllLinks());
+    dispatchGetLinks();
+    if (links) setSelectedLink(links[0]._id);
   }, [user, navigate, dispatch]);
 
   const handleSelectLink = (e) => {
     // Use id attribute to get the id of the selected link
+    console.log("E", e);
     const selectedId = e.target.options[e.target.selectedIndex].id;
-    console.log(selectedId);
+    console.log("Selected: ", selectedId);
     setSelectedLink(selectedId);
   };
 
