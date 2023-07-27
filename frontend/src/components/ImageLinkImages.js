@@ -9,22 +9,28 @@ import timage from "./assets/understand.png";
 import {
   getAllLinks,
   deleteImageFromImageLink,
+  getImage,
 } from "../features/imagelink/imagelinkSlice";
 
 function ImageLinkImages(props) {
   const selectedImageLink = props.selectedImageLink;
   const selectedImages = props.selected;
+  const [imageLink, setImageLinks] = useState([]);
 
   const dispatch = useDispatch();
 
   const { links } = useSelector((state) => state.imagelink);
   //console.log(links);
 
+  const [imageUrl, setImageUrl] = useState([]);
+
   let imagelink = null;
   if (props.page !== "shared") {
     imagelink = links.find((link) => link._id === selectedImageLink);
   } else {
     imagelink = props.images;
+    console.log("imagelink: " + JSON.stringify(imagelink));
+    //loadSharedImages(imagelink);
   }
 
   const handleSelect = (e) => {
@@ -57,6 +63,7 @@ function ImageLinkImages(props) {
     }
   };
 
+  /*
   const handleDownloadSelected = () => {
     if (!imagelink) {
       return;
@@ -77,6 +84,84 @@ function ImageLinkImages(props) {
       }
     });
   };
+  */
+
+  const handleDownloadSelected = () => {
+    if (!imagelink) {
+      return;
+    }
+
+    // For each image, go to their src link to download
+    selectedImages.forEach((imageId, index) => {
+      const image = imagelink.images.find((img) => img._id === imageId);
+      if (image) {
+        const link = document.createElement("a");
+        const imageFormat = image.img.contentType.split("/")[1];
+        // Obtain the image name from the image itself
+        const imageName = image.name;
+        link.href = imageUrl[imagelink.images.indexOf(image)];
+        link.download = imageName;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.click();
+      }
+    });
+  };
+
+  async function loadImages(selectedImageLink) {
+    if (!selectedImageLink) {
+      return;
+    }
+    const imageLinkArray = links.find(
+      (link) => link._id === selectedImageLink
+    ).images;
+
+    // Append the image to the image array
+    const imageArray = [];
+    for (let i = 0; i < imageLinkArray.length; i++) {
+      const image = await dispatch(
+        getImage({
+          id: selectedImageLink,
+          imageKey: imageLinkArray[i].img.data,
+        })
+      );
+      imageArray.push(image.payload);
+      console.log("Image string: " + JSON.stringify(image).payload);
+    }
+
+    setImageUrl(imageArray);
+  }
+
+  async function loadSharedImages(imageLink) {
+    if (!imageLink) {
+      return;
+    }
+    const imageLinkArray = imageLink.images;
+
+    // Append the image to the image array
+    const imageArray = [];
+    for (let i = 0; i < imageLinkArray.length; i++) {
+      const image = await dispatch(
+        getImage({
+          id: imageLink._id,
+          imageKey: imageLinkArray[i].img.data,
+        })
+      );
+      imageArray.push(image.payload);
+      console.log("Image string: " + JSON.stringify(image).payload);
+    }
+
+    setImageUrl(imageArray);
+  }
+
+  useEffect(() => {
+    if (props.page !== "shared") {
+      loadImages(selectedImageLink);
+    } else {
+      console.log("props.images: " + JSON.stringify(props.images));
+      loadSharedImages(props.images);
+    }
+  }, [selectedImageLink, props.images]);
 
   return (
     <>
@@ -121,17 +206,18 @@ function ImageLinkImages(props) {
             if (!imagelink) {
               return null;
             }
-            console.log("Current:" + imagelink);
+            console.log("Current:", imagelink);
             return (
               imagelink.images &&
               imagelink.images.map((image) => (
                 <div className="image-div">
                   <img
                     className="imagelink-image"
-                    src={`data:image/png;base64,${image.img.data}`}
+                    src={imageUrl[imagelink.images.indexOf(image)]}
                     alt="imagelink"
                     id={image._id}
                     onClick={handleSelect}
+                    key={imagelink.images.indexOf(image)}
                   />
                 </div>
               ))
