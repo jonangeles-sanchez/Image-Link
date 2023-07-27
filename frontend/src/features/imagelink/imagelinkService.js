@@ -61,6 +61,19 @@ const getSingleImageLink = async (id) => {
   return response.data;
 };
 
+const getImage = async (id, imageKey) => {
+  /*
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  */
+  // const response = await axios.get(API_URL + id + "/" + imageKey, config);
+  const response = await axios.get(API_URL + id + "/" + imageKey);
+  return response.data;
+};
+
 const imagelinkService = {
   getImageLinks,
   createImageLink,
@@ -68,6 +81,7 @@ const imagelinkService = {
   deleteImageLink,
   deleteImageFromImageLink,
   getSingleImageLink,
+  getImage,
 };
 
 export default imagelinkService;
