@@ -6,6 +6,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   links: [],
+  image: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -130,6 +131,29 @@ export const getSingleImageLink = createAsyncThunk(
   }
 );
 
+// Get a single image by key
+export const getImage = createAsyncThunk(
+  "imagelinks/getImage",
+  async ({ id, imageKey }, thunkAPI) => {
+    try {
+      //const token = thunkAPI.getState().auth.user.token;
+      //console.log("token: ", token);
+      console.log("id: ", id);
+      console.log("imageKey: ", imageKey);
+      //return await imagelinkService.getImage(token, id, imageKey);
+      return await imagelinkService.getImage(id, imageKey);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const imagelinkSlice = createSlice({
   name: "auth",
   initialState,
@@ -222,6 +246,21 @@ export const imagelinkSlice = createSlice({
         state.singleLink = action.payload;
       })
       .addCase(getSingleImageLink.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+      })
+      .addCase(getImage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getImage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.image = action.payload;
+        console.log("state.image: ", state.image);
+      })
+      .addCase(getImage.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
