@@ -33,7 +33,7 @@ router
   .delete(protect, deleteSingleImageLink);
 router
   .route("/:imagelinkid/:imageid")
-  .get(protect, getImage)
+  .get(getImage)
   .delete(protect, deleteImage);
 
 module.exports = router;
