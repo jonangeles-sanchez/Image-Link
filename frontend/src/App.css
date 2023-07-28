@@ -460,25 +460,49 @@ video {
   background-size: cover;
 }
 
+/* Register page */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #171544;
+  border-radius: 2rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  border: solid;
+  border-color: black;
+  border-width: 0.2rem;
+  background-image: url("./components/assets/card-mist-glow.6139fbd9.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .heading {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 50px;
-  padding: 0 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.heading h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
 .heading p {
-  color: white;
+  font-size: 1.2rem;
+  color: #888;
 }
 
-.form,
-.content {
+.form {
   width: 70%;
   margin: 0 auto;
 }
 
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .form-group input,
@@ -488,21 +512,38 @@ video {
   padding: 10px;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
-  margin-bottom: 10px;
   font-family: inherit;
+  font-size: 1rem;
 }
 
 .form-group label {
   text-align: left;
   display: block;
-  margin: 0 0 5px 3px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #1b5e8d; /* Match the color of the logo */
 }
 
-.form-group label {
-  text-align: left;
-  display: block;
-  margin: 0 0 5px 3px;
+.form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: #7b61ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
 }
+
+.form-group button:hover {
+  background-color: #149f58;
+}
+
+.register-header {
+  color: #1a5f91; /* Match the color of the logo */
+}
+/* Register page End */
 
 .btn-block {
   width: 100%;
