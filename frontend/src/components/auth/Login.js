@@ -54,41 +54,47 @@ function Login() {
 
   return (
     <>
-      <section className="heading">
-        <h1>Login</h1>
-        <p>Login and do amazing things with ImageLink.</p>
-      </section>
-      <section className="form">
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Enter your email"
-              name="email"
-              value={email}
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Enter your password"
-              name="password"
-              value={password}
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
-              Login
-            </button>
-          </div>
-        </form>
-      </section>
+      <div className="login-container">
+        <section className="heading">
+          <h1 className="login-header">Login</h1>
+          <p>Login and do amazing things with ImageLink.</p>
+        </section>
+        <section className="form">
+          <form onSubmit={onSubmit}>
+            <div className="form-group">
+              <label className="email-label" htmlFor="email">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                name="email"
+                value={email}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password" className="password-label">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                name="password"
+                value={password}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-block">
+                Login
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
     </>
   );
 }

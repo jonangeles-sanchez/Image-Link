@@ -516,7 +516,10 @@ video {
   font-size: 1rem;
 }
 
-.form-group label {
+.name-label,
+.register-email-label,
+.register-password-label,
+.register-password2-label {
   text-align: left;
   display: block;
   margin-bottom: 5px;
@@ -544,6 +547,42 @@ video {
   color: #1a5f91; /* Match the color of the logo */
 }
 /* Register page End */
+
+/* Login page */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #171544;
+  border-radius: 2rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  border: solid;
+  border-color: black;
+  border-width: 0.2rem;
+  background-image: url("./components/assets/card-red-glow.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-header {
+  color: white; /* Match the color of the logo */
+}
+
+.email-label,
+.password-label {
+  text-align: left;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Login page End */
 
 .btn-block {
   width: 100%;
