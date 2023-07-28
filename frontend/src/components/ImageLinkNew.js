@@ -33,7 +33,7 @@ function ImageLinkNew(props) {
   }, [formFields]);
   return (
     <>
-      <form className="form-group">
+      <form className="form-group-new">
         <label htmlFor="title">Title</label>
         <input
           type="text"
@@ -52,15 +52,14 @@ function ImageLinkNew(props) {
           placeholder="Enter description"
           onChange={handleChange}
         />
-        <button onClick={handleCreate} className="button-share-collection">
-          Create
-        </button>
-        <button
-          onClick={props.handleCancel}
-          className="button-share-collection cancel"
-        >
-          Cancel
-        </button>
+        <div className="operation-btns">
+          <button onClick={handleCreate} className="createNewCollection">
+            Create
+          </button>
+          <button onClick={props.handleCancel} className="cancel">
+            Cancel
+          </button>
+        </div>
       </form>
     </>
   );

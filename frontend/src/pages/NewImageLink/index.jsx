@@ -28,14 +28,15 @@ function NewImageLink() {
       navigate("/login");
     }
     dispatchGetLinks();
-    if (links) setSelectedLink(links[0]._id);
   }, [user, navigate, dispatch]);
+
+  useEffect(() => {
+    if (links && links.length > 0) setSelectedLink(links[0]._id);
+  }, [links]);
 
   const handleSelectLink = (e) => {
     // Use id attribute to get the id of the selected link
-    console.log("E", e);
     const selectedId = e.target.options[e.target.selectedIndex].id;
-    console.log("Selected: ", selectedId);
     setSelectedLink(selectedId);
   };
 

@@ -774,8 +774,50 @@ ul {
   font-family: inherit;
 }
 
+.form-group-new {
+  margin-bottom: 20px;
+}
+
+.form-group-new input,
+.form-group-new textarea,
+.form-group-new select {
+  width: 100%;
+  padding: 8x;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 20px;
+}
+.form-group-new button {
+  width: 100%;
+  padding: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.createNewCollection {
+  background-color: #7b61ff;
+}
+
+.form-group-new button:hover {
+  background-color: #2f64fe;
+}
+
 .cancel {
+  background-color: red;
   margin-left: 10%;
+}
+
+.operation-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 5%;
 }
 
 .button-delete-upload {
@@ -786,6 +828,19 @@ ul {
   font-family: "Exo", sans-serif;
   font-family: "Roboto Mono", monospace;
   margin-left: 3%;
+}
+
+/* Status messages */
+.success-msg {
+  color: #1bb76e;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.error-msg {
+  color: #ff3e4e;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 /* Modal */
