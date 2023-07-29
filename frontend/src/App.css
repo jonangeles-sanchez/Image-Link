@@ -721,6 +721,16 @@ ul {
   font-family: "Roboto Mono", monospace;
 }
 
+.button-download-images {
+  margin-top: 8%;
+  color: linear-gradient(180deg, #2f64fe, white);
+  border: none;
+  color: #bd26fe;
+  font-size: 1.5rem;
+  font-family: "Exo", sans-serif;
+  font-family: "Roboto Mono", monospace;
+}
+
 .button-share-collection {
   color: linear-gradient(180deg, #2f64fe, white);
   border: none;
@@ -824,12 +834,12 @@ ul {
   color: #bd26fe;
 }
 
-.image-link-actions {
+.imagelink-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center the children horizontally */
   width: 100%;
   max-width: 600px;
-  margin-top: 20px;
+  margin: 20px auto; /* Use auto for top and bottom margin to center the entire container */
 }
 
 .buttons-actions {

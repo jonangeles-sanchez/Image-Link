@@ -220,7 +220,7 @@ function ImageLinkImages(props) {
       <div className="image-link-images">
         <p className="image-link-title">{props.imageLinkTitle}</p>
       </div>
-      <div className="image-link-actions">
+      <div className="imagelink-actions">
         {selectedImages.length > 0 && selectedImageLink && (
           <div className="buttons-actions">
             {props.page !== "shared" && (
@@ -245,7 +245,7 @@ function ImageLinkImages(props) {
 
         {selectedImages.length > 0 && (
           <button
-            className="buttons-actions button-delete-image"
+            className="buttons-actions button-download-images"
             onClick={handleDownloadSelected}
           >
             Download selected images
