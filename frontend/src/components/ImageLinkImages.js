@@ -214,7 +214,7 @@ function ImageLinkImages(props) {
                   <img
                     className="imagelink-image"
                     src={imageUrl[imagelink.images.indexOf(image)]}
-                    alt="imagelink"
+                    alt={image.name}
                     id={image._id}
                     onClick={handleSelect}
                     key={imagelink.images.indexOf(image)}
