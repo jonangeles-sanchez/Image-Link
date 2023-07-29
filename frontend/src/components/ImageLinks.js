@@ -28,6 +28,7 @@ function ImageLinks(props) {
     if (selectedImageLink === id) {
       props.select(null);
       e.target.style.border = "none";
+      props.setImageLinkTitle(null);
     } else {
       // Only one image link can be selected at a time
       props.select(id);
@@ -39,6 +40,7 @@ function ImageLinks(props) {
           imageLinks[i].children[0].children[0].style.border = "none";
         }
       }
+      props.setImageLinkTitle(e.target.title);
     }
   };
 
@@ -94,6 +96,7 @@ function ImageLinks(props) {
                 src={folder}
                 alt="folder"
                 id={link._id}
+                title={link.title}
                 onClick={handleSelectImageLink}
               />
             </button>
