@@ -19,6 +19,7 @@ function ImageLinkImages(props) {
   const [imageLink, setImageLinks] = useState([]);
   const [imageLinkTitle, setImageLinkTitle] = useState("");
   const dispatch = useDispatch();
+  const [operated, setOperated] = useState(false);
 
   const { links } = useSelector((state) => state.imagelink);
   //console.log(links);
@@ -69,12 +70,11 @@ function ImageLinkImages(props) {
     }
   };
 
-  const handleDeleteSelected = () => {
+  const handleDeleteSelected = async () => {
     if (!selectedImageLink && !selectedImages) {
       return;
     }
 
-    // store all images with the class 'selected' in an array
     const imageLinkArray = [];
     const allImages = document.querySelectorAll(".imagelink-image");
     allImages.forEach((image) => {
@@ -87,16 +87,16 @@ function ImageLinkImages(props) {
     console.log("imageLinkArray: ", imageLinkArray);
 
     // Loop through and delete them
+    let imageUrlsCopy = [...imageUrl];
     for (let i = 0; i < imageLinkArray.length; i++) {
       const image = imageLinkArray[i];
       const id = image.id;
-      // Get the image.img.data using the id
       const imageLink = links.find((link) => link._id === selectedImageLink);
       const imageLinkArrayQueried = imageLink.images;
       const imageKey = imageLinkArrayQueried.find(
         (image) => image._id === id
       ).img;
-      dispatch(
+      await dispatch(
         deleteImageFromImageLink({
           id: selectedImageLink,
           imageKey: imageKey.data,
@@ -108,7 +108,12 @@ function ImageLinkImages(props) {
         imageKey: imageKey.data,
         imageId: id,
       });
+      // Remove the image from imageUrls
+      imageUrlsCopy.splice(imageUrlsCopy.indexOf(image.src), 1);
     }
+
+    setImageUrl(imageUrlsCopy);
+    setOperated(true);
   };
 
   const handleDownloadSelected = async () => {
@@ -194,13 +199,14 @@ function ImageLinkImages(props) {
   }
 
   useEffect(() => {
+    setOperated(false);
     if (props.page !== "shared") {
       loadImages(selectedImageLink);
     } else {
       console.log("props.images: " + JSON.stringify(props.images));
       loadSharedImages(props.images);
     }
-  }, [selectedImageLink, props.images]);
+  }, [selectedImageLink, props.images, operated]);
 
   const imageLinkIsLoading = useSelector((state) => state.imagelink.isLoading);
   const imageCodeIsLoading = useSelector((state) => state.imagecode.isLoading);
