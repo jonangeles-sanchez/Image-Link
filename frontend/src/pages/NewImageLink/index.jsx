@@ -51,6 +51,14 @@ function NewImageLink() {
   return (
     <div className="upload-section">
       <Card>
+        <SelectImageLink
+          links={links}
+          handleSelectLink={handleSelectLink}
+          handleNewImageLink={handleNewImageLink}
+        />
+      </Card>
+
+      <Card>
         {!newLink ? (
           <ImageLinkUpload currLink={selectedLink} />
         ) : (
@@ -61,13 +69,6 @@ function NewImageLink() {
             selectedLink={selectedLink}
           />
         )}
-      </Card>
-      <Card>
-        <SelectImageLink
-          links={links}
-          handleSelectLink={handleSelectLink}
-          handleNewImageLink={handleNewImageLink}
-        />
       </Card>
     </div>
   );
