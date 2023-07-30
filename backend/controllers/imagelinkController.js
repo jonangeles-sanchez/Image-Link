@@ -147,6 +147,10 @@ const deleteSingleImageLink = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
+  for (let i = 0; i < imageLink.images.length; i++) {
+    await deleteFile(imageLink.images[i].img.data);
+  }
+
   await ImageLink.findByIdAndDelete(req.params.imagelinkid);
 
   //res.status(200).json({ id: req.params.id });
