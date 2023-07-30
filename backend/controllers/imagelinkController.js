@@ -3,7 +3,7 @@ const Image = require("../models/imageModel");
 const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
-const { uploadFile, getFileStream } = require("../middleware/s3");
+const { uploadFile, getFileStream, deleteFile } = require("../middleware/s3");
 
 const ImageLink = require("../models/imagelinkModel");
 
@@ -147,6 +147,10 @@ const deleteSingleImageLink = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
+  for (let i = 0; i < imageLink.images.length; i++) {
+    await deleteFile(imageLink.images[i].img.data);
+  }
+
   await ImageLink.findByIdAndDelete(req.params.imagelinkid);
 
   //res.status(200).json({ id: req.params.id });
@@ -228,8 +232,10 @@ const deleteImage = asyncHandler(async (req, res) => {
   }
 
   // Search for the image in the ImageLink connection that matches the image id
+  console.log("Images:", imageLink.images);
+  console.log("req.body.mongoImageId: ", req.body.mongoImageId);
   const image = await imageLink.images.find(
-    (image) => image._id.toString() === req.params.imageid.toString()
+    (image) => image._id.toString() === req.body.mongoImageId.toString()
   );
 
   // If the image is not found, throw an error
@@ -246,11 +252,14 @@ const deleteImage = asyncHandler(async (req, res) => {
     { _id: req.params.imagelinkid },
     {
       $pull: {
-        images: { _id: new mongoose.Types.ObjectId(req.params.imageid) },
+        images: { _id: new mongoose.Types.ObjectId(req.body.mongoImageId) },
       },
     },
     { new: true }
   );
+
+  // Delete the image from the database
+  await deleteFile(req.params.imageid);
 
   // Send the id of the deleted image to the client
   res.status(200).json({ id: req.params.imageid });

@@ -3,7 +3,8 @@
 }
 
 body {
-  background-image: linear-gradient(180deg, #171544, #061234);
+  /* background-image: linear-gradient(180deg, #171544, #061234); */
+  background-color: #171544;
 }
 
 .App-logo {
@@ -21,7 +22,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
@@ -51,7 +51,7 @@ nav {
 /* Header */
 .home-header {
   margin: auto;
-  padding: 2rem;
+  padding: 1.2rem;
   justify-content: space-between;
   background-color: #171544;
   background-size: 100%;
@@ -59,6 +59,7 @@ nav {
   z-index: 1;
   overflow: hidden;
   display: flex;
+  height: 40px;
 }
 .left-header {
   display: flex;
@@ -68,15 +69,6 @@ nav {
   display: flex;
   float: right;
 }
-/*
-.list {
-  list-style-type: none;
-  display: flex;
-  align-content: r;
-  gap: 3rem;
-  overflow: hidden;
-}
-*/
 
 a {
   text-decoration: none;
@@ -84,15 +76,15 @@ a {
 }
 
 button b {
-  font-size: 1.2rem;
+  font-size: 15px;
 }
 
 b.gotcode {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 b.name {
-  font-size: 3.5rem;
+  font-size: 2rem;
 }
 
 button:hover,
@@ -125,11 +117,11 @@ button {
 .new-imagelink {
   background-color: #1bb76e;
   color: white;
-  padding: 1rem 1rem;
   margin-left: 5%;
-  font-size: 1.2rem;
+  font-size: 0.5rem;
   font-weight: 600;
   cursor: pointer;
+  width: auto;
 }
 
 /* Header End */
@@ -165,8 +157,6 @@ button {
   justify-content: center;
   width: 100%;
   height: 100%;
-  margin-left: 220px;
-  margin-right: 220px;
 }
 
 .CodeInputForm b {
@@ -196,39 +186,228 @@ button {
   border-radius: 0 3px 3px 0;
   height: 54.5px;
 }
+
+/* Mobile styles for screens with width less than or equal to 768px */
+@media (max-width: 768px) {
+  .home-header {
+    /* Mobile-friendly styles for the header */
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 200px; /* Adjust padding as needed */
+  }
+
+  .left-header,
+  .right-header {
+    display: flex;
+    flex-direction: row; /* Display elements in a row */
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .new-imagelink,
+  .login,
+  .signup {
+    margin: 5px;
+    white-space: nowrap; /* Prevent buttons from wrapping to the next line */
+  }
+
+  /* Ensure buttons are not wider than their parent container */
+  .left-header,
+  .right-header {
+    width: 100%; /* Ensure the container takes up the full width */
+    justify-content: space-between; /* Space buttons evenly in the container */
+  }
+
+  /* Reorder elements for mobile view */
+  .name {
+    order: 1; /* ImageLink logo on top */
+    margin-bottom: 10px; /* Add some spacing below the logo */
+  }
+
+  .left-header {
+    order: 2; /* Buttons in the same row with ImageLink logo */
+  }
+
+  .right-header {
+    order: 3; /* Buttons in the same row with ImageLink logo */
+  }
+
+  .CodeInputContainer {
+    order: 4; /* "Got a code?" input on bottom */
+  }
+
+  /* Add some spacing between the buttons */
+  .right-header button {
+    margin: 0 5px;
+  }
+
+  .left-header button {
+    height: 87%;
+  }
+}
+
 /* CodeInput  End*/
 
-.home-content {
-  background-color: #171544;
-}
-
-.home-welcome {
-  color: white;
-  font-size: 5rem;
-  font-family: "Exo", sans-serif;
-  font-family: "Roboto Mono", monospace;
-  padding: 0;
-  margin: 0;
-}
-
-.home-small-text {
-  color: white;
-  font-size: 1.5rem;
-  font-family: "Exo", sans-serif;
-  font-family: "Roboto Mono", monospace;
-  padding: 0;
-  margin: 0;
-}
-
-.home-capture {
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+.home-container {
   display: flex;
-  font-size: 7rem;
-  font-family: "Exo", sans-serif;
-  font-family: "Roboto Mono", monospace;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #171544;
+  border-radius: 2rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  border: solid;
+  border-color: black;
+  border-width: 0.2rem;
+  background-image: url("./components/assets/star-cluster-purple.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Add the parallax effect */
+  background-attachment: fixed;
+}
+
+/* Logo */
+.logo {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #1bb76e;
+}
+
+/* Welcome text */
+.welcome-text {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+/* Buttons */
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.home-button {
+  background-color: #1bb76e;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.5rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #149f58;
+}
+
+/* Features */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.feature {
+  width: 300px;
+  background-color: #1a1a3b;
+  color: white;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.feature-description {
+  text-align: center;
+}
+
+/* Footer */
+.home-footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 2rem;
+}
+
+.home-footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.home-footer a:hover {
+  color: white;
+}
+
+.how-to-use-section {
+  color: white;
+  padding: 3rem 0;
+}
+
+.how-to-use-card {
+  background-color: #1a1a3b;
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-image: url("./components/assets/star-cluster-purple.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Add the parallax effect */
+  background-attachment: fixed;
+}
+
+.how-to-use-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1bb76e;
+}
+
+.how-to-use-content ol {
+  font-size: 1.2rem;
+  list-style: none;
   padding: 0;
-  margin: 0;
-  line-height: 1;
+}
+
+.how-to-use-content li {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+}
+
+.how-to-use-content li::before {
+  content: "➤";
+  color: #1bb76e;
+  font-weight: bold;
+  display: inline-block;
+  width: 1rem;
+  margin-left: -1rem;
 }
 
 /*
@@ -272,25 +451,49 @@ video {
   background-size: cover;
 }
 
+/* Register page */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #171544;
+  border-radius: 2rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  border: solid;
+  border-color: black;
+  border-width: 0.2rem;
+  background-image: url("./components/assets/card-mist-glow.6139fbd9.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .heading {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 50px;
-  padding: 0 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.heading h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
 }
 
 .heading p {
-  color: white;
+  font-size: 1.2rem;
+  color: #888;
 }
 
-.form,
-.content {
+.form {
   width: 70%;
   margin: 0 auto;
 }
 
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .form-group input,
@@ -300,21 +503,77 @@ video {
   padding: 10px;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
-  margin-bottom: 10px;
   font-family: inherit;
+  font-size: 1rem;
 }
 
-.form-group label {
+.name-label,
+.register-email-label,
+.register-password-label,
+.register-password2-label {
   text-align: left;
   display: block;
-  margin: 0 0 5px 3px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #1b5e8d; /* Match the color of the logo */
 }
 
-.form-group label {
+.form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: #7b61ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form-group button:hover {
+  background-color: #149f58;
+}
+
+.register-header {
+  color: #1a5f91; /* Match the color of the logo */
+}
+/* Register page End */
+
+/* Login page */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #171544;
+  border-radius: 2rem;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  border: solid;
+  border-color: black;
+  border-width: 0.2rem;
+  background-image: url("./components/assets/card-red-glow.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-header {
+  color: white; /* Match the color of the logo */
+}
+
+.email-label,
+.password-label {
   text-align: left;
   display: block;
-  margin: 0 0 5px 3px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: white;
 }
+
+/* Login page End */
 
 .btn-block {
   width: 100%;
@@ -435,18 +694,6 @@ ul {
   color: #bd26fe;
 }
 
-.imagelink-image {
-  width: 75%;
-  height: 100%;
-  object-fit: cover;
-  background: transparent;
-  background-color: white;
-  border: solid;
-  border-color: black;
-  border-width: 0.2rem;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-}
-
 .imagelink-collection-name {
   display: flex;
   margin-left: 5%;
@@ -465,6 +712,16 @@ ul {
   font-family: "Roboto Mono", monospace;
 }
 .button-delete-image {
+  margin-top: 8%;
+  color: linear-gradient(180deg, #2f64fe, white);
+  border: none;
+  color: #bd26fe;
+  font-size: 1.5rem;
+  font-family: "Exo", sans-serif;
+  font-family: "Roboto Mono", monospace;
+}
+
+.button-download-images {
   margin-top: 8%;
   color: linear-gradient(180deg, #2f64fe, white);
   border: none;
@@ -506,8 +763,50 @@ ul {
   font-family: inherit;
 }
 
+.form-group-new {
+  margin-bottom: 20px;
+}
+
+.form-group-new input,
+.form-group-new textarea,
+.form-group-new select {
+  width: 100%;
+  padding: 8x;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 20px;
+}
+.form-group-new button {
+  width: 100%;
+  padding: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.createNewCollection {
+  background-color: #7b61ff;
+}
+
+.form-group-new button:hover {
+  background-color: #2f64fe;
+}
+
 .cancel {
+  background-color: red;
   margin-left: 10%;
+}
+
+.operation-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 5%;
 }
 
 .button-delete-upload {
@@ -518,6 +817,100 @@ ul {
   font-family: "Exo", sans-serif;
   font-family: "Roboto Mono", monospace;
   margin-left: 3%;
+}
+
+/* imagelink images page */
+/* New CSS for ImageLinkImages component */
+.image-link-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.image-link-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #bd26fe;
+}
+
+.imagelink-actions {
+  display: flex;
+  justify-content: center; /* Center the children horizontally */
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto; /* Use auto for top and bottom margin to center the entire container */
+}
+
+.buttons-actions {
+  display: flex;
+}
+
+.buttons-actions button {
+  background-color: #bd26fe;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.buttons-actions button:hover {
+  background-color: #8d1eb7;
+}
+
+/*1337-----------------*/
+.list {
+  list-style-type: none;
+  display: flex; /* Remove this line to avoid wrapping on smaller screens */
+  align-content: r;
+  gap: 3rem;
+  overflow: hidden;
+}
+
+.imagelink-image:hover {
+  transform: scale(1.05);
+}
+
+.imagelink-image.selected,
+.imagelink-image.selected:focus {
+  border: 10px solid blue !important;
+}
+
+.image-link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 30px; /* Increase the value to add more spacing between images */
+  width: 100%;
+  margin-top: 30px;
+}
+
+.image-div {
+  position: relative;
+  overflow: hidden;
+}
+
+.imagelink-image {
+  width: 100%;
+  height: 200px; /* Set desired height for image thumbnails */
+  object-fit: cover;
+  background: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Status messages */
+.success-msg {
+  color: #1bb76e;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.error-msg {
+  color: #ff3e4e;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
 }
 
 /* Modal */
@@ -648,4 +1041,28 @@ ul {
   box-shadow: none;
   transform: none;
   background: whitesmoke;
+}
+
+/* Modal End */
+
+/* Loading gif */
+.loadingGifContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(61, 92, 100, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Add fixed width and height to the container */
+  width: 100%;
+  height: 100%;
+}
+
+.loadingGif {
+  width: 100px; /* You can adjust the width as needed */
+  height: 100px; /* You can adjust the height as needed */
 }

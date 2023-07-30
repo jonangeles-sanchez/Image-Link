@@ -94,12 +94,15 @@ export const deleteImageLink = createAsyncThunk(
 // Delete an image from imagelink by id
 export const deleteImageFromImageLink = createAsyncThunk(
   "imagelinks/deleteImageFromImageLink",
-  async ({ id, imageId }, thunkAPI) => {
+  async ({ id, imageKey, imageId }, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      for (let i = 0; i < imageId.length; i++) {
-        await imagelinkService.deleteImageFromImageLink(token, id, imageId[i]);
-      }
+      await imagelinkService.deleteImageFromImageLink(
+        token,
+        id,
+        imageKey,
+        imageId
+      );
       return await imagelinkService.getImageLinks(token);
     } catch (error) {
       const message =

@@ -1,7 +1,12 @@
 require("dotenv").config();
 const fs = require("fs");
 // const S3 = require("aws-sdk/clients/s3");
-const { S3, S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const {
+  S3,
+  S3Client,
+  GetObjectCommand,
+  DeleteObjectCommand,
+} = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { Upload } = require("@aws-sdk/lib-storage");
 
@@ -58,3 +63,19 @@ async function getFileStream(fileKey) {
 }
 
 exports.getFileStream = getFileStream;
+
+// deletes a file from s3
+function deleteFile(fileKey) {
+  const deleteParams = new DeleteObjectCommand({
+    Key: fileKey,
+    Bucket: bucketName,
+  });
+
+  try {
+    return s3.send(deleteParams);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+exports.deleteFile = deleteFile;

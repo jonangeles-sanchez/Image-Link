@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 function Modal(props) {
   const code = useSelector((state) => state.imagecode.code.code);
   const copyUrl = () => {
-    navigator.clipboard.writeText(props.url);
+    const url = props.url + code;
+    navigator.clipboard.writeText(url);
     alert("Copied to clipboard!");
   };
   return (

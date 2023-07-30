@@ -3,7 +3,7 @@ function SelectImageLink({ links, handleSelectLink, handleNewImageLink }) {
     <>
       {links.length > 0 ? (
         <>
-          <p>Select which link to upload to</p>
+          <p>Select which collection to upload to</p>
           <select className="imagelink-dropdown" onChange={handleSelectLink}>
             {links.map((link) => {
               return (
@@ -13,14 +13,14 @@ function SelectImageLink({ links, handleSelectLink, handleNewImageLink }) {
               );
             })}
           </select>
-          <p>Or create a new imagelink!</p>
+          <p>Or create a new collection!</p>
         </>
       ) : (
-        <p>No imagelinks found</p>
+        <p>No collections found, create a new one!</p>
       )}
 
       <button className="button-share-collection" onClick={handleNewImageLink}>
-        Create new imagelink
+        Create New Collection
       </button>
     </>
   );

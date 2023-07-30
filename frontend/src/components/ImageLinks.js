@@ -28,6 +28,7 @@ function ImageLinks(props) {
     if (selectedImageLink === id) {
       props.select(null);
       e.target.style.border = "none";
+      props.setImageLinkTitle(null);
     } else {
       // Only one image link can be selected at a time
       props.select(id);
@@ -39,12 +40,13 @@ function ImageLinks(props) {
           imageLinks[i].children[0].children[0].style.border = "none";
         }
       }
+      props.setImageLinkTitle(e.target.title);
     }
   };
 
   const handleDeleteImageLink = () => {
     if (!selectedImageLink) {
-      alert("Please select an image link to delete");
+      alert("Please select an image collection to delete");
       return;
     }
     dispatch(deleteImageLink(selectedImageLink));
@@ -53,7 +55,7 @@ function ImageLinks(props) {
 
   const handleShareImageLink = () => {
     if (!selectedImageLink) {
-      alert("Please select an image link to share");
+      alert("Please select an image collection to share");
       return;
     }
     // setCode(dispatch(createImageLinkCode({ imagelinkid: selectedImageLink })));
@@ -62,10 +64,21 @@ function ImageLinks(props) {
   };
 
   const handleShare = async (callback) => {
-    const code = await dispatch(
-      createImageLinkCode({ imagelinkid: selectedImageLink })
-    );
-    callback();
+    try {
+      const codeResponse = await dispatch(
+        createImageLinkCode({ imagelinkid: selectedImageLink })
+      );
+
+      if (codeResponse.payload && codeResponse.payload.code) {
+        const code = codeResponse.payload.code;
+      } else {
+        console.log("Code not found in the response.");
+      }
+
+      callback();
+    } catch (error) {
+      console.error("Error in handleShare:", error);
+    }
   };
 
   useEffect(() => {
@@ -83,7 +96,7 @@ function ImageLinks(props) {
   return (
     <>
       <div className="imagelink-title">
-        <h1 className="imagelink-title">ImageLinks</h1>
+        <h1 className="imagelink-title">Image Collections</h1>
       </div>
       <ul ref={ref}>
         {links.map((link) => (
@@ -94,6 +107,7 @@ function ImageLinks(props) {
                 src={folder}
                 alt="folder"
                 id={link._id}
+                title={link.title}
                 onClick={handleSelectImageLink}
               />
             </button>
@@ -107,17 +121,17 @@ function ImageLinks(props) {
             className="button-delete-collection"
             onClick={handleDeleteImageLink}
           >
-            Delete ImageLink
+            Delete Collection
           </button>
           <button
             className="button-share-collection"
             onClick={handleShareImageLink}
           >
-            Share ImageLink
+            Create ImageLink Code
           </button>
           <button className="button-share-collection">
             <NavLink to="/newimagelink" className="button-share-collection">
-              Upload photos
+              Upload Photos To Collection
             </NavLink>
           </button>
         </div>
