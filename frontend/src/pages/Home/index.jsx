@@ -11,10 +11,13 @@ function Index() {
         </div>
         <div className="home-buttons">
           <Link to="/newimagelink" className="home-button">
-            New ImageLink
+            New Collection
           </Link>
           <Link to="/login" className="home-button">
             Login
+          </Link>
+          <Link to="/" className="home-button">
+            Pricing (Coming Soon)
           </Link>
         </div>
 
@@ -57,12 +60,23 @@ function Index() {
                 your images.
               </li>
               <li>
-                <strong>Create ImageLink:</strong> Click on "New ImageLink" to
+                <strong>Create ImageLink:</strong> Click on "New Collection" to
                 create and customize your image collection.
               </li>
               <li>
-                <strong>Share:</strong> Once your ImageLink is ready, click on
-                "Share ImageLink" and easily share it with friends and family.
+                <strong>View:</strong> Once your Collection is ready, click on
+                "View Collections" to view your incredible collection of
+                memories.
+              </li>
+              <li>
+                <strong>Share: </strong>
+                Choose your collection and click on "Create ImageLink" and
+                easily share your ImageLink with friends and family.
+              </li>
+              <li>
+                <strong>View Shared: </strong>
+                Direct yourself to the shared ImageLink or paste the URL's code
+                into the code bar above to view the shared ImageLink.
               </li>
             </ol>
           </div>
@@ -70,14 +84,7 @@ function Index() {
       </section>
 
       <footer className="home-footer">
-        &copy; 2023 ImageLink. All rights reserved. | Made with ❤️ by{" "}
-        <a
-          href="https://www.yourwebsite.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Your Name
-        </a>
+        &copy; 2023 ImageLink. All rights reserved.
       </footer>
     </>
   );
