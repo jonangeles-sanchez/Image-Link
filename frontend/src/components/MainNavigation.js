@@ -28,7 +28,7 @@ function MainNavigation() {
           </NavLink>
           <button className="new-imagelink">
             <NavLink to="/newimagelink" end>
-              <b>New ImageLink</b>
+              <b>New Collection</b>
             </NavLink>
           </button>
         </div>
@@ -50,7 +50,7 @@ function MainNavigation() {
           ) : (
             <>
               <button className="login" onClick={handleViewImages}>
-                View collections
+                View Collections
               </button>
               <button className="signup" onClick={handleLogout}>
                 <NavLink to="/signup">
