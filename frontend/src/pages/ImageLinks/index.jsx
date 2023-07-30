@@ -11,7 +11,7 @@ function ImageLinkPage() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const [url, setUrl] = useState("http://localhost:3000/");
+  const [url, setUrl] = useState("http://localhost:3000/imagelink/");
   const [imageLinkTitle, setImageLinkTitle] = useState("");
 
   useEffect(() => {
@@ -42,6 +42,7 @@ function ImageLinkPage() {
         select={setSelectedImageLink}
         openModal={handleOpenModal}
         setImageLinkTitle={setImageLinkTitle}
+        setUrl={setUrl}
       />
       <ImageLinkImages
         selectedImageLink={selectedImageLink}
