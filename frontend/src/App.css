@@ -3,7 +3,8 @@
 }
 
 body {
-  background-image: linear-gradient(180deg, #171544, #061234);
+  /* background-image: linear-gradient(180deg, #171544, #061234); */
+  background-color: #171544;
 }
 
 .App-logo {
@@ -21,7 +22,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
@@ -883,7 +883,6 @@ ul {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 30px; /* Increase the value to add more spacing between images */
   width: 100%;
-  max-width: 800px;
   margin-top: 30px;
 }
 
