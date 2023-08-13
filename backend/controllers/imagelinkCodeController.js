@@ -4,7 +4,7 @@ const ImagelinkCode = require("../models/imagelinkCodeModel");
 var { nanoid } = require("nanoid");
 var ID = nanoid();
 
-// @desc    Get imagelink code by slink
+// @desc    Get imagelink ID from code
 // @route   GET /api/code/:code
 // @access  Public
 const getImagelinkCode = asyncHandler(async (req, res) => {
@@ -30,7 +30,7 @@ const getImagelinkCode = asyncHandler(async (req, res) => {
   res.status(200).json(imagelinkCode.imagelinkid);
 });
 
-// @desc    Create a new imagelink code
+// @desc    Create a new imagelink code for a given imagelink(id)
 // @route   POST /api/code/:imagelinkid
 // @access  Public
 const createImagelinkCode = asyncHandler(async (req, res) => {

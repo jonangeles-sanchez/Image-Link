@@ -28,8 +28,8 @@ const createImageLink = asyncHandler(async (req, res) => {
   res.status(200).json(newImageLink);
 });
 
-// @desc    Get all image links
-// @route   GET /api/imagelinks
+// @desc    Get all image links associated with the user
+// @route   GET /api/imagelink/:id
 // @access  Public
 const getAllImageLinks = asyncHandler(async (req, res) => {
   // Get all imageLinks associated with the user
@@ -39,7 +39,7 @@ const getAllImageLinks = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get a single image link
-// @route   GET /api/imagelinks/:id
+// @route   GET /api/imagelink/:imagelinkid
 // @access  Public
 const getSingleImageLink = asyncHandler(async (req, res) => {
   const { imagelinkid } = req.params;
@@ -61,7 +61,7 @@ const getSingleImageLink = asyncHandler(async (req, res) => {
 });
 
 // @desc    Update a single image link
-// @route   PUT /api/imagelinks/:id
+// @route   PUT /api/imagelink/:imagelinkid
 // @access  Private
 const updateSingleImageLink = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
@@ -125,7 +125,7 @@ const updateSingleImageLink = asyncHandler(async (req, res) => {
 });
 
 // @desc    Delete a single image link
-// @route   DELETE /api/imagelinks/:id
+// @route   DELETE /api/imagelink/:imagelinkid
 // @access  Private
 const deleteSingleImageLink = asyncHandler(async (req, res) => {
   const imageLink = await ImageLink.findById(req.params.imagelinkid);
@@ -209,7 +209,7 @@ const getImage = asyncHandler(async (req, res) => {
 });
 
 // @desc   delete an image
-// @route  DELETE /api/imagelinks/:imageid
+// @route  DELETE /api/imagelink/:imagelinkid/:imageid
 // @access Private
 const deleteImage = asyncHandler(async (req, res) => {
   // Get the imagelink id from the request
