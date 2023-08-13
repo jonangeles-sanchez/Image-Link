@@ -14,7 +14,7 @@ ImageLink is a platform designed for hosting and sharing images with friends and
 
 ## Getting started
 
-The ImageLink API allows applications to interact with ImageLink's servers to manage image collections and obtain images. The API is designed around REST principles and uses JSON-encoded responses.
+The ImageLink API allows applications to interact with ImageLink's servers to manage image collections and obtain images. The API is designed around REST principles and uses JSON-encoded responses. Supporting documentation for the API is provided below and can be also found in the docs folder in the backend directory.
 
 ## Errors
 
